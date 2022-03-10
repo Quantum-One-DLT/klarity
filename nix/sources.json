@@ -1,0 +1,122 @@
+{
+    "bcc-node": {
+        "branch": "refs/tags/1.29.0-rc2",
+        "description": null,
+        "homepage": null,
+        "owner": "The-Blockchain-Company",
+        "repo": "bcc-node",
+        "rev": "cc78734d263d0eec2b12070380cdfea02a5a8342",
+        "sha256": "1bqrbgc11c4x5mrcm7shyvfs05fqi4v1pr4y9pw2aprab277czjr",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/bcc-node/archive/cc78734d263d0eec2b12070380cdfea02a5a8342.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "bcc-shell": {
+        "branch": "master",
+        "description": "Node shell, a thin layer for running the node and it's modules.",
+        "homepage": null,
+        "owner": "The-Blockchain-Company",
+        "repo": "bcc-shell",
+        "rev": "5257fc818ef7df60986834310432e197aac90711",
+        "sha256": "1si7jb084m2z9h773b1v4mgdkcjbbfpsyys3d6iz6gn0pzkijvc8",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/bcc-shell/archive/5257fc818ef7df60986834310432e197aac90711.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "bcc-wallet": {
+        "branch": "anviking/ADP-1081/node-aurum-rc",
+        "description": "Official Wallet Backend & API for Bcc decentralized",
+        "homepage": null,
+        "owner": "The-Blockchain-Company",
+        "repo": "bcc-wallet",
+        "rev": "011a258c1b5ba57ca70f13346109ce3074820032",
+        "sha256": "14l6fyjp7pxpjc7ga33bakg19fqy8dna6hmmrzp2f73hw27xg4dj",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/bcc-wallet/archive/011a258c1b5ba57ca70f13346109ce3074820032.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "gitignore": {
+        "branch": "master",
+        "description": "Nix function for filtering local git sources",
+        "homepage": "",
+        "owner": "hercules-ci",
+        "repo": "gitignore",
+        "rev": "f9e996052b5af4032fe6150bba4a6fe4f7b9d698",
+        "sha256": "0jrh5ghisaqdd0vldbywags20m2cxpkbbk5jjjmwaw0gr8nhsafv",
+        "type": "tarball",
+        "url": "https://github.com/hercules-ci/gitignore/archive/f9e996052b5af4032fe6150bba4a6fe4f7b9d698.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "haskell.nix": {
+        "branch": "master",
+        "description": "Alternative Haskell Infrastructure for Nixpkgs",
+        "homepage": "https://The-Blockchain-Company.github.io/haskell.nix",
+        "owner": "The-Blockchain-Company",
+        "repo": "haskell.nix",
+        "rev": "6260dcb06b7d2855cbcd0a0f36483453c311248e",
+        "sha256": "1q9bqgf41ch3dpghsvh74xqnj98h3khj4gxk9n2kq9qai12720yv",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/haskell.nix/archive/6260dcb06b7d2855cbcd0a0f36483453c311248e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "tbco-nix": {
+        "branch": "master",
+        "description": "nix scripts shared across projects",
+        "homepage": null,
+        "owner": "The-Blockchain-Company",
+        "repo": "tbco-nix",
+        "rev": "266ca46a8d1cb4286b9699b4fd435066e88440ac",
+        "sha256": "132fbnnpp7bbfqv3dgvn9xi9dc1gsn9mivbqnxmglgmlv4lmrad8",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/tbco-nix/archive/266ca46a8d1cb4286b9699b4fd435066e88440ac.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "js-chain-libs": {
+        "branch": "master",
+        "description": "chain-libs javascript SDK",
+        "homepage": null,
+        "owner": "The-Blockchain-Company",
+        "repo": "js-chain-libs",
+        "rev": "1f1bbc5557ed5356a5fac89a3224d3449ef98ba3",
+        "sha256": "14v7zm2h3v4vb7f15i4mk6f5jsdd6akqv2pzqmj52hprh076p0hd",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/js-chain-libs/archive/1f1bbc5557ed5356a5fac89a3224d3449ef98ba3.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "tbco",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "The-Blockchain-Company",
+        "repo": "niv",
+        "rev": "4229fbcf62997467c34283a2f353702359e78e5a",
+        "sha256": "1y1h6aj0rxrrhvp9jpr6xw3zsa1l8ac25ng4xzjskr5kg620pxqr",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/niv/archive/4229fbcf62997467c34283a2f353702359e78e5a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nix-bundle": {
+        "branch": "rm-style",
+        "description": "Bundle Nix derivations to run anywhere!",
+        "homepage": "",
+        "owner": "The-Blockchain-Company",
+        "repo": "nix-bundle",
+        "rev": "acf3b142c1fa332d4f9050e7cdfb3c3f8091e78b",
+        "sha256": "0pcc8bh1x3shr6k2h8zw05n0apm5ppx6nk07xp89ljldah4mmc6c",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/nix-bundle/archive/acf3b142c1fa332d4f9050e7cdfb3c3f8091e78b.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-nsis": {
+        "branch": "nsis",
+        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+        "homepage": "https://github.com/NixOS/nixpkgs",
+        "owner": "The-Blockchain-Company",
+        "repo": "nixpkgs",
+        "rev": "be445a9074f139d63e704fa82610d25456562c3d",
+        "sha256": "15dc7gdspimavcwyw9nif4s59v79gk18rwsafylffs9m1ld2dxwa",
+        "type": "tarball",
+        "url": "https://github.com/The-Blockchain-Company/nixpkgs/archive/be445a9074f139d63e704fa82610d25456562c3d.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

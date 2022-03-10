@@ -1,0 +1,987 @@
+// @flow
+import React, { Component, Fragment } from 'react';
+import type { Node } from 'react';
+import type { Field } from 'mobx-react-form';
+import { observer } from 'mobx-react';
+import { intlShape, FormattedHTMLMessage } from 'react-intl';
+import { filter, get, indexOf, omit, map, without } from 'lodash';
+import BigNumber from 'bignumber.js';
+import classNames from 'classnames';
+import SVGInline from 'react-svg-inline';
+import vjf from 'mobx-react-form/lib/validators/VJF';
+import { Button } from 'react-polymorph/lib/components/Button';
+import { Input } from 'react-polymorph/lib/components/Input';
+import { NumericInput } from 'react-polymorph/lib/components/NumericInput';
+import { PopOver } from 'react-polymorph/lib/components/PopOver';
+import BorderedBox from '../widgets/BorderedBox';
+import LoadingSpinner from '../widgets/LoadingSpinner';
+import ReadOnlyInput from '../widgets/forms/ReadOnlyInput';
+import { FormattedHTMLMessageWithLink } from '../widgets/FormattedHTMLMessageWithLink';
+import questionMarkIcon from '../../assets/images/question-mark.inline.svg';
+import closeIcon from '../../assets/images/close-cross.inline.svg';
+import globalMessages from '../../i18n/global-messages';
+import messages from './send-form/messages';
+import { messages as apiErrorMessages } from '../../api/errors';
+import ReactToolboxMobxForm from '../../utils/ReactToolboxMobxForm';
+import {
+  formattedAmountToNaturalUnits,
+  formattedAmountToEntropic,
+  formattedWalletAmount,
+} from '../../utils/formatters';
+import { FORM_VALIDATION_DEBOUNCE_WAIT } from '../../config/timingConfig';
+import { TRANSACTION_MIN_BCC_VALUE } from '../../config/walletsConfig';
+import { NUMBER_FORMATS } from '../../../../common/types/number.types';
+import AssetInput from './send-form/AssetInput';
+import WalletSendAssetsConfirmationDialog from './send-form/WalletSendAssetsConfirmationDialog';
+import WalletSendConfirmationDialogContainer from '../../containers/wallet/dialogs/WalletSendConfirmationDialogContainer';
+import styles from './WalletSendForm.scss';
+import Asset from '../../domains/Asset';
+import type { HwDeviceStatus } from '../../domains/Wallet';
+import type { AssetToken, ApiTokens } from '../../api/assets/types';
+
+messages.fieldIsRequired = globalMessages.fieldIsRequired;
+
+type Props = {
+  currencyMaxIntegerDigits: number,
+  currencyMaxFractionalDigits: number,
+  currentNumberFormat: string,
+  calculateTransactionFee: Function,
+  walletAmount: BigNumber,
+  validateAmount: (amountInNaturalUnits: string) => Promise<boolean>,
+  validateAssetAmount: (amountInNaturalUnits: string) => Promise<boolean>,
+  addressValidator: Function,
+  assets: Array<AssetToken>,
+  hasAssets: boolean,
+  selectedAsset: ?Asset,
+  isLoadingAssets: boolean,
+  isDialogOpen: Function,
+  isRestoreActive: boolean,
+  isHardwareWallet: boolean,
+  hwDeviceStatus: HwDeviceStatus,
+  onOpenDialogAction: Function,
+  onUnsetActiveAsset: Function,
+  onExternalLinkClick: Function,
+  isAddressFromSameWallet: boolean,
+};
+
+type State = {
+  formFields: {
+    receiver: {
+      receiver: Field,
+      bccAmount: Field,
+      assetFields: {
+        [uniqueId: string]: Field,
+      },
+      assetsDropdown: {
+        [uniqueId: string]: Field,
+      },
+    },
+  },
+  minimumBcc: BigNumber,
+  feeCalculationRequestQue: number,
+  transactionFee: BigNumber,
+  transactionFeeError: ?string | ?Node,
+  showRemoveAssetButton: { [uniqueId: string]: boolean },
+  selectedAssetUniqueIds: Array<string>,
+  isResetButtonDisabled: boolean,
+  isReceiverAddressValid: boolean,
+  isTransactionFeeCalculated: boolean,
+};
+
+@observer
+export default class WalletSendForm extends Component<Props, State> {
+  static contextTypes = {
+    intl: intlShape.isRequired,
+  };
+
+  state = {
+    formFields: {},
+    minimumBcc: new BigNumber(0),
+    feeCalculationRequestQue: 0,
+    transactionFee: new BigNumber(0),
+    transactionFeeError: null,
+    showRemoveAssetButton: {},
+    selectedAssetUniqueIds: [],
+    isResetButtonDisabled: true,
+    isReceiverAddressValid: false,
+    isTransactionFeeCalculated: false,
+  };
+
+  // We need to track the fee calculation state in order to disable
+  // the "Submit" button as soon as either receiver or amount field changes.
+  // This is required as we are using debounced validation and we need to
+  // disable the "Submit" button as soon as the value changes and then wait for
+  // the validation to end in order to see if the button should be enabled or not.
+  _isCalculatingTransactionFee = false;
+
+  // We need to track the mounted state in order to avoid calling
+  // setState promise handling code after the component was already unmounted:
+  // Read more: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
+  _isMounted = false;
+
+  // We need to prevent auto focus of bcc and token amount fields in case user pastes
+  // or enters a receiver address which belongs to the same wallet he is sending from.
+  _isAutoFocusEnabled = true;
+
+  componentDidMount() {
+    this._isMounted = true;
+    this.updateFormFields(true);
+    const { selectedAsset } = this.props;
+    if (selectedAsset) {
+      setTimeout(() => {
+        if (this._isMounted) {
+          this.addAssetRow(selectedAsset.uniqueId);
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+    this.props.onUnsetActiveAsset();
+  }
+
+  getCurrentNumberFormat() {
+    return NUMBER_FORMATS[this.props.currentNumberFormat];
+  }
+
+  get selectedAssets(): Array<AssetToken> {
+    const { selectedAssetUniqueIds } = this.state;
+    const { assets: allAssets } = this.props;
+    return map(selectedAssetUniqueIds, (uniqueId) =>
+      allAssets.find((asset) => asset.uniqueId === uniqueId)
+    );
+  }
+
+  get selectedAssetsAmounts(): Array<string> {
+    const { selectedAssetUniqueIds, formFields } = this.state;
+    const assetFields = get(formFields, 'receiver.assetFields');
+    return map(selectedAssetUniqueIds, (uniqueId) =>
+      formattedAmountToNaturalUnits(assetFields[uniqueId].value)
+    );
+  }
+
+  get availableAssets(): Array<AssetToken> {
+    const { assets: allAssets } = this.props;
+    const { selectedAssetUniqueIds } = this.state;
+    return filter(
+      allAssets,
+      ({ uniqueId }) => !selectedAssetUniqueIds.includes(uniqueId)
+    );
+  }
+
+  get hasAvailableAssets(): boolean {
+    return this.availableAssets.length > 0;
+  }
+
+  getAssetByUniqueId = (uniqueId: string): ?AssetToken => {
+    const { assets: allAssets } = this.props;
+    return allAssets.find((asset) => asset.uniqueId === uniqueId);
+  };
+
+  focusableFields: {
+    [uniqueId: string]: Field,
+  } = {};
+
+  addFocusableField = (field: ?Field) => {
+    if (field) {
+      const { name: fieldName } = field.props;
+      this.focusableFields[fieldName] = field;
+    }
+  };
+
+  focusField = (field: Field) => {
+    const { name: fieldName } = field;
+    const focusableField = this.focusableFields[fieldName];
+    if (focusableField) {
+      focusableField.focus();
+    }
+  };
+
+  handleSubmitOnEnter = (event: KeyboardEvent): void => {
+    if (event.target instanceof HTMLInputElement && event.key === 'Enter')
+      this.handleOnSubmit();
+  };
+
+  handleOnSubmit = () => {
+    if (this.isDisabled()) {
+      return;
+    }
+    this.props.onOpenDialogAction({
+      dialog: WalletSendAssetsConfirmationDialog,
+    });
+  };
+
+  handleOnReset = () => {
+    // Cancel all debounced field validations
+    this.form.each((field) => {
+      field.debouncedValidation.cancel();
+    });
+    this.form.reset();
+    this.form.showErrors(false);
+
+    this.clearReceiverFieldValue();
+    this.clearBccAmountFieldValue();
+    this.updateFormFields(true);
+
+    this.setState({
+      minimumBcc: new BigNumber(0),
+      showRemoveAssetButton: {},
+      isResetButtonDisabled: true,
+    });
+  };
+
+  clearReceiverFieldValue = () => {
+    const receiverField = this.form.$('receiver');
+    if (receiverField) {
+      receiverField.clear();
+      this.setReceiverValidity(false);
+      this.focusField(receiverField);
+    }
+  };
+
+  clearBccAmountFieldValue = () => {
+    const bccAmountField = this.form.$('bccAmount');
+    if (bccAmountField) {
+      bccAmountField.clear();
+    }
+  };
+
+  clearAssetFieldValue = (assetField: Field) => {
+    if (assetField) {
+      assetField.clear();
+      this.focusField(assetField);
+    }
+    this.resetTransactionFee();
+  };
+
+  updateFormFields = (resetFormFields: boolean, uniqueId?: string) => {
+    const formFields = this.form.fields;
+    const receiverField = formFields.get('receiver');
+    const bccAmountField = formFields.get('bccAmount');
+    if (resetFormFields) {
+      this.setState({
+        selectedAssetUniqueIds: [],
+        formFields: {
+          receiver: {
+            receiver: receiverField,
+            bccAmount: bccAmountField,
+            assetFields: {},
+            assetsDropdown: {},
+          },
+        },
+      });
+    } else if (uniqueId) {
+      const { assetFields, assetsDropdown } = this.state.formFields.receiver;
+      const assetField = formFields.get(`asset_${uniqueId}`);
+      if (assetField) {
+        assetFields[uniqueId] = assetField;
+      }
+      const assetsDropdownField = formFields.get(`assetsDropdown_${uniqueId}`);
+      if (assetsDropdownField) {
+        assetsDropdown[uniqueId] = assetsDropdownField;
+      }
+      this.setState((prevState) => ({
+        formFields: {
+          ...prevState.formFields,
+          receiver: {
+            ...prevState.formFields.receiver,
+            assetFields,
+            assetsDropdown,
+          },
+        },
+      }));
+    }
+  };
+
+  hasReceiverValue = () => {
+    const receiverField = this.form.$('receiver');
+    return receiverField.value.length > 0;
+  };
+
+  isAddressFromSameWallet = () => {
+    const { isAddressFromSameWallet } = this.props;
+    const receiverField = this.form.$('receiver');
+    return (
+      this.hasReceiverValue() &&
+      isAddressFromSameWallet &&
+      receiverField.isValid
+    );
+  };
+
+  isDisabled = () =>
+    this._isCalculatingTransactionFee ||
+    !this.state.isTransactionFeeCalculated ||
+    !this.form.isValid;
+
+  form = new ReactToolboxMobxForm(
+    {
+      fields: {
+        receiver: {
+          label: this.context.intl.formatMessage(messages.receiverLabel),
+          placeholder: this.context.intl.formatMessage(messages.receiverHint),
+          value: '',
+          validators: [
+            async ({ field, form }) => {
+              const { value } = field;
+              if (value === null || value === '') {
+                this.resetTransactionFee();
+                this.setReceiverValidity(false);
+                return [
+                  false,
+                  this.context.intl.formatMessage(messages.fieldIsRequired),
+                ];
+              }
+              const isValid = await this.props.addressValidator(value);
+              if (isValid && this.isAddressFromSameWallet()) {
+                this._isAutoFocusEnabled = false;
+              }
+              this.setReceiverValidity(isValid);
+              const bccAmountField = form.$('bccAmount');
+              const isBccAmountValid = bccAmountField.isValid;
+              if (isValid && isBccAmountValid) {
+                this.calculateTransactionFee();
+              } else {
+                this.resetTransactionFee();
+              }
+              return [
+                isValid,
+                this.context.intl.formatMessage(
+                  apiErrorMessages.invalidAddress
+                ),
+              ];
+            },
+          ],
+        },
+        bccAmount: {
+          label: this.context.intl.formatMessage(messages.bccAmountLabel),
+          placeholder: `0${
+            this.getCurrentNumberFormat().decimalSeparator
+          }${'0'.repeat(this.props.currencyMaxFractionalDigits)}`,
+          value: '',
+          validators: [
+            async ({ field }) => {
+              const { value } = field;
+              if (value === null || value === '') {
+                this.resetTransactionFee();
+                return [
+                  false,
+                  this.context.intl.formatMessage(messages.fieldIsRequired),
+                ];
+              }
+              const amountValue = value.toString();
+              const isValid = await this.props.validateAmount(
+                formattedAmountToNaturalUnits(amountValue)
+              );
+              if (isValid) {
+                this.calculateTransactionFee();
+              } else {
+                this.resetTransactionFee();
+              }
+              return [
+                isValid,
+                this.context.intl.formatMessage(messages.invalidAmount),
+              ];
+            },
+          ],
+        },
+        estimatedFee: {
+          label: this.context.intl.formatMessage(messages.estimatedFeeLabel),
+          placeholder: `0${
+            this.getCurrentNumberFormat().decimalSeparator
+          }${'0'.repeat(this.props.currencyMaxFractionalDigits)}`,
+          value: null,
+        },
+      },
+    },
+    {
+      plugins: { vjf: vjf() },
+      options: {
+        validateOnBlur: false,
+        validateOnChange: true,
+        validationDebounceWait: FORM_VALIDATION_DEBOUNCE_WAIT,
+      },
+    }
+  );
+
+  setReceiverValidity(isValid: boolean) {
+    if (this._isMounted) {
+      this.setState({
+        isReceiverAddressValid: isValid,
+      });
+    }
+  }
+
+  isLatestTransactionFeeRequest = (
+    currentFeeCalculationRequestQue: number,
+    prevFeeCalculationRequestQue: number
+  ) => currentFeeCalculationRequestQue - prevFeeCalculationRequestQue === 1;
+
+  calculateTransactionFee = async () => {
+    const { form } = this;
+    const emptyAssetFieldValue = '0';
+    const hasEmptyAssetFields = this.selectedAssetsAmounts.includes(
+      emptyAssetFieldValue
+    );
+    if (!form.isValid || hasEmptyAssetFields) {
+      form.showErrors(true);
+      return;
+    }
+
+    const receiverField = form.$('receiver');
+    const receiver = receiverField.value;
+    const bccAmountField = form.$('bccAmount');
+    const bccAmount = formattedAmountToEntropic(bccAmountField.value);
+    const assets: ApiTokens = filter(
+      this.selectedAssets.map(({ policyId, assetName }, index) => {
+        const quantity = new BigNumber(this.selectedAssetsAmounts[index]);
+        return {
+          policy_id: policyId,
+          asset_name: assetName,
+          quantity, // BigNumber or number - prevent parsing a BigNumber to Number (Integer) because of JS number length limitation
+        };
+      }),
+      'quantity'
+    );
+
+    const {
+      selectedAssetUniqueIds,
+      feeCalculationRequestQue: prevFeeCalculationRequestQue,
+    } = this.state;
+    this.setState((prevState) => ({
+      feeCalculationRequestQue: prevState.feeCalculationRequestQue + 1,
+      isTransactionFeeCalculated: false,
+      transactionFee: new BigNumber(0),
+      transactionFeeError: null,
+    }));
+    try {
+      this._isCalculatingTransactionFee = true;
+      const { fee, minimumBcc } = await this.props.calculateTransactionFee(
+        receiver,
+        bccAmount,
+        assets
+      );
+      if (
+        this._isMounted &&
+        this.isLatestTransactionFeeRequest(
+          this.state.feeCalculationRequestQue,
+          prevFeeCalculationRequestQue
+        ) &&
+        !this.selectedAssetsAmounts.includes(emptyAssetFieldValue)
+      ) {
+        this._isCalculatingTransactionFee = false;
+        this.setState({
+          isTransactionFeeCalculated: true,
+          minimumBcc: minimumBcc || new BigNumber(0),
+          transactionFee: fee,
+          transactionFeeError: null,
+        });
+      }
+    } catch (error) {
+      if (
+        this._isMounted &&
+        this.isLatestTransactionFeeRequest(
+          this.state.feeCalculationRequestQue,
+          prevFeeCalculationRequestQue
+        )
+      ) {
+        const errorHasLink = !!get(error, ['values', 'linkLabel']);
+        let transactionFeeError;
+        let localizableError = error;
+        let values;
+
+        if (error.id === 'api.errors.utxoTooSmall') {
+          const minimumBcc = get(error, 'values.minimumBcc');
+          if (minimumBcc && !Number.isNaN(Number(minimumBcc))) {
+            localizableError = selectedAssetUniqueIds.length
+              ? messages.minBccRequiredWithAssetTooltip
+              : messages.minBccRequiredWithNoAssetTooltip;
+            values = { minimumBcc };
+            this.setState({ minimumBcc: new BigNumber(minimumBcc) });
+          }
+        }
+
+        if (errorHasLink) {
+          transactionFeeError = (
+            <FormattedHTMLMessageWithLink
+              message={localizableError}
+              onExternalLinkClick={this.props.onExternalLinkClick}
+            />
+          );
+        } else {
+          transactionFeeError = (
+            <FormattedHTMLMessage {...localizableError} values={values} />
+          );
+        }
+
+        this._isCalculatingTransactionFee = false;
+        this.setState({
+          isTransactionFeeCalculated: false,
+          transactionFee: new BigNumber(0),
+          transactionFeeError,
+        });
+      }
+    }
+  };
+
+  resetTransactionFee() {
+    if (this._isMounted) {
+      this._isCalculatingTransactionFee = false;
+      this.setState({
+        isTransactionFeeCalculated: false,
+        transactionFee: new BigNumber(0),
+        transactionFeeError: null,
+      });
+    }
+  }
+
+  showRemoveAssetButton = (uniqueId: string) => {
+    const { showRemoveAssetButton } = this.state;
+    showRemoveAssetButton[uniqueId] = true;
+    this.setState({
+      showRemoveAssetButton,
+    });
+  };
+
+  hideRemoveAssetButton = (uniqueId: string) => {
+    const { showRemoveAssetButton } = this.state;
+    showRemoveAssetButton[uniqueId] = false;
+    this.setState({
+      showRemoveAssetButton,
+    });
+  };
+
+  addAssetRow = (uniqueId: string) => {
+    this.addAssetFields(uniqueId);
+    this.updateFormFields(false, uniqueId);
+    const { selectedAssetUniqueIds } = this.state;
+    selectedAssetUniqueIds.push(uniqueId);
+    this.setState({
+      selectedAssetUniqueIds,
+    });
+    this.resetTransactionFee();
+    this._isAutoFocusEnabled = true;
+  };
+
+  removeAssetRow = (uniqueId: string) => {
+    const { formFields, selectedAssetUniqueIds } = this.state;
+    const { receiver } = formFields;
+    const assetFields = omit(receiver.assetFields, uniqueId);
+    const assetsDropdown = omit(receiver.assetsDropdown, uniqueId);
+    this.setState({
+      selectedAssetUniqueIds: without(selectedAssetUniqueIds, uniqueId),
+      formFields: {
+        ...formFields,
+        receiver: {
+          ...receiver,
+          assetFields,
+          assetsDropdown,
+        },
+      },
+    });
+    this.removeAssetFields(uniqueId);
+    setTimeout(() => {
+      this.calculateTransactionFee();
+    });
+  };
+
+  addAssetFields = (uniqueId: string) => {
+    const newAsset = `asset_${uniqueId}`;
+    this.form.add({ name: newAsset, value: null, key: newAsset });
+    this.form
+      .$(newAsset)
+      .set('label', this.context.intl.formatMessage(messages.assetLabel));
+    this.form
+      .$(newAsset)
+      .set(
+        'placeholder',
+        `0${this.getCurrentNumberFormat().decimalSeparator}${'0'.repeat(
+          this.props.currencyMaxFractionalDigits
+        )}`
+      );
+    this.form.$(newAsset).set('validators', [
+      async ({ field }) => {
+        const { value } = field;
+        if (value === null || value === '') {
+          this.resetTransactionFee();
+          return [
+            false,
+            this.context.intl.formatMessage(messages.fieldIsRequired),
+          ];
+        }
+        const amountValue = value.toString();
+        const isValidAmount = await this.props.validateAssetAmount(
+          formattedAmountToNaturalUnits(amountValue)
+        );
+        const asset = this.getAssetByUniqueId(uniqueId);
+        if (!asset) {
+          return false;
+        }
+        const assetValue = new BigNumber(
+          formattedAmountToNaturalUnits(field.value)
+        );
+        const isValidRange =
+          assetValue.isGreaterThan(0) &&
+          assetValue.isLessThanOrEqualTo(asset.quantity);
+        const isValid = isValidAmount && isValidRange;
+        if (isValid) {
+          this.calculateTransactionFee();
+        } else {
+          this.resetTransactionFee();
+        }
+        return [
+          isValid,
+          this.context.intl.formatMessage(messages.invalidAmount),
+        ];
+      },
+    ]);
+
+    const assetsDropdown = `assetsDropdown_${uniqueId}`;
+    this.form.add({
+      name: assetsDropdown,
+      value: null,
+      key: assetsDropdown,
+    });
+    this.form.$(assetsDropdown).set('type', 'select');
+  };
+
+  removeAssetFields = (uniqueId: string) => {
+    const assetFieldToDelete = `asset_${uniqueId}`;
+    this.form.del(assetFieldToDelete);
+    const assetsDropdownFieldToDelete = `assetsDropdown_${uniqueId}`;
+    this.form.del(assetsDropdownFieldToDelete);
+  };
+
+  onChangeAsset = async (currentUniqueId: string, newUniqueId: string) => {
+    if (currentUniqueId === newUniqueId) return;
+    this.addAssetFields(newUniqueId);
+    this.updateFormFields(false, newUniqueId);
+    const { selectedAssetUniqueIds: oldSelectedAssetUniqueIds } = this.state;
+    const selectedAssetUniqueIds = [...oldSelectedAssetUniqueIds];
+    const index = indexOf(selectedAssetUniqueIds, currentUniqueId);
+    if (index > -1) {
+      selectedAssetUniqueIds.splice(index, 1, newUniqueId);
+    } else {
+      selectedAssetUniqueIds.push(newUniqueId);
+    }
+    await this.setState({
+      selectedAssetUniqueIds,
+    });
+    this.removeAssetRow(currentUniqueId);
+    this.resetTransactionFee();
+  };
+
+  renderReceiverRow = (): Node => {
+    const { intl } = this.context;
+    const {
+      formFields,
+      minimumBcc,
+      transactionFeeError,
+      selectedAssetUniqueIds,
+      isReceiverAddressValid,
+    } = this.state;
+    const { currencyMaxFractionalDigits, walletAmount } = this.props;
+
+    const {
+      bccAmount: bccAmountField,
+      receiver: receiverField,
+      assetFields,
+      assetsDropdown,
+    } = formFields.receiver;
+
+    const assetsSeparatorBasicHeight = 140;
+    const assetsSeparatorCalculatedHeight = selectedAssetUniqueIds.length
+      ? assetsSeparatorBasicHeight * (selectedAssetUniqueIds.length + 1) -
+        40 * selectedAssetUniqueIds.length
+      : assetsSeparatorBasicHeight;
+
+    const minimumBccValue = minimumBcc.isZero()
+      ? TRANSACTION_MIN_BCC_VALUE
+      : minimumBcc.toFormat();
+
+    const addAssetButtonClasses = classNames([
+      styles.addAssetButton,
+      !this.hasAvailableAssets ? styles.disabled : null,
+      'primary',
+    ]);
+
+    const receiverFieldClasses = classNames([
+      styles.receiverInput,
+      this.isAddressFromSameWallet() ? styles.sameReceiverInput : null,
+    ]);
+
+    const minBccRequiredTooltip = selectedAssetUniqueIds.length
+      ? messages.minBccRequiredWithAssetTooltip
+      : messages.minBccRequiredWithNoAssetTooltip;
+
+    const sameWalletError = intl.formatMessage(messages.sameWalletLabel);
+    let receiverFieldError = receiverField.error;
+    let receiverFieldThemeVars = {};
+    if (this.isAddressFromSameWallet()) {
+      receiverFieldError = sameWalletError;
+      receiverFieldThemeVars = {
+        '--rp-input-border-color-errored':
+          'var(--rp-password-input-warning-score-color)',
+        '--rp-pop-over-bg-color':
+          'var(--rp-password-input-warning-score-color)',
+      };
+    }
+
+    return (
+      <div className={styles.fieldsContainer}>
+        <div className={receiverFieldClasses}>
+          <Input
+            {...receiverField.bind()}
+            ref={(field) => {
+              this.addFocusableField(field);
+            }}
+            className="receiver"
+            error={receiverFieldError}
+            onChange={(value) => {
+              receiverField.onChange(value || '');
+              this.setState({
+                isResetButtonDisabled: false,
+              });
+            }}
+            onKeyPress={this.handleSubmitOnEnter}
+            themeVariables={receiverFieldThemeVars}
+          />
+          {this.hasReceiverValue() && (
+            <div className={styles.clearReceiverContainer}>
+              <PopOver
+                content={intl.formatMessage(messages.clearLabel)}
+                placement="top"
+              >
+                <button
+                  onClick={() => this.handleOnReset()}
+                  className={styles.clearReceiverButton}
+                  tabIndex={-1}
+                >
+                  <SVGInline
+                    svg={closeIcon}
+                    className={styles.clearReceiverIcon}
+                  />
+                </button>
+              </PopOver>
+            </div>
+          )}
+        </div>
+        {this.hasReceiverValue() && isReceiverAddressValid && (
+          <>
+            <div
+              className={styles.fieldsLine}
+              style={{
+                height: `${assetsSeparatorCalculatedHeight}px`,
+                top: `${assetsSeparatorCalculatedHeight - 10}px`,
+                marginTop: `-${assetsSeparatorCalculatedHeight}px`,
+              }}
+            />
+            <div className={styles.assetInput}>
+              <Fragment>
+                {walletAmount && (
+                  <div className={styles.amountTokenTotal}>
+                    {intl.formatMessage(messages.ofLabel)}&nbsp;
+                    {formattedWalletAmount(walletAmount)}
+                  </div>
+                )}
+                <div className={styles.bccAmountLabel}>
+                  {intl.formatMessage(globalMessages.bccUnit)}
+                </div>
+                <NumericInput
+                  {...bccAmountField.bind()}
+                  ref={(field) => {
+                    this.addFocusableField(field);
+                  }}
+                  className="bccAmount"
+                  value={bccAmountField.value}
+                  bigNumberFormat={this.getCurrentNumberFormat()}
+                  decimalPlaces={currencyMaxFractionalDigits}
+                  numberLocaleOptions={{
+                    minimumFractionDigits: currencyMaxFractionalDigits,
+                  }}
+                  onChange={(value) => {
+                    bccAmountField.onChange(value);
+                  }}
+                  currency={globalMessages.bccUnit}
+                  error={bccAmountField.error || transactionFeeError}
+                  onKeyPress={this.handleSubmitOnEnter}
+                  allowSigns={false}
+                  autoFocus={this._isAutoFocusEnabled}
+                />
+                <div className={styles.minBccRequired}>
+                  <span>
+                    {intl.formatMessage(messages.minBccRequired, {
+                      minimumBcc: minimumBccValue,
+                    })}
+                  </span>
+                  <PopOver
+                    content={intl.formatMessage(minBccRequiredTooltip, {
+                      minimumBcc: minimumBccValue,
+                    })}
+                    contentClassName={styles.minBccTooltipContent}
+                    key="tooltip"
+                  >
+                    <SVGInline
+                      svg={questionMarkIcon}
+                      className={styles.infoIcon}
+                    />
+                  </PopOver>
+                </div>
+              </Fragment>
+              <Fragment>
+                {selectedAssetUniqueIds.map(
+                  (uniqueId: string, index: number) => (
+                    <AssetInput
+                      key={uniqueId}
+                      uniqueId={uniqueId}
+                      index={index}
+                      getAssetByUniqueId={this.getAssetByUniqueId}
+                      availableAssets={this.availableAssets}
+                      assetFields={assetFields}
+                      assetsDropdown={assetsDropdown}
+                      addFocusableField={this.addFocusableField}
+                      removeAssetButtonVisible={
+                        this.state.showRemoveAssetButton
+                      }
+                      showRemoveAssetButton={this.showRemoveAssetButton}
+                      hideRemoveAssetButton={this.hideRemoveAssetButton}
+                      currentNumberFormat={this.getCurrentNumberFormat()}
+                      removeAssetRow={this.removeAssetRow}
+                      handleSubmitOnEnter={this.handleSubmitOnEnter}
+                      clearAssetFieldValue={this.clearAssetFieldValue}
+                      onChangeAsset={(newUniqueId) =>
+                        this.onChangeAsset(uniqueId, newUniqueId)
+                      }
+                      autoFocus={this._isAutoFocusEnabled}
+                    />
+                  )
+                )}
+              </Fragment>
+              <Button
+                className={addAssetButtonClasses}
+                label={intl.formatMessage(messages.addAssetButtonLabel)}
+                disabled={!this.hasAvailableAssets}
+                onClick={() => {
+                  this.addAssetRow(this.availableAssets[0].uniqueId);
+                }}
+              />
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
+  render() {
+    const { form } = this;
+    const { intl } = this.context;
+    const {
+      formFields,
+      transactionFee,
+      transactionFeeError,
+      isResetButtonDisabled,
+      isTransactionFeeCalculated,
+    } = this.state;
+    const {
+      currencyMaxFractionalDigits,
+      hwDeviceStatus,
+      isHardwareWallet,
+      isDialogOpen,
+      isRestoreActive,
+      onExternalLinkClick,
+    } = this.props;
+
+    const receiverField = form.$('receiver');
+    const receiver = receiverField.value;
+
+    const bccAmountField = form.$('bccAmount');
+    const bccAmount = new BigNumber(bccAmountField.value || 0);
+
+    let fees = '0';
+    let total: BigNumber = bccAmount;
+    if (isTransactionFeeCalculated) {
+      fees = transactionFee.toFormat(currencyMaxFractionalDigits);
+      total = bccAmount.plus(transactionFee);
+    }
+
+    const calculatingFeesSpinnerButtonClasses = classNames([
+      styles.calculatingFeesSpinnerButton,
+      styles.spinning,
+    ]);
+
+    return (
+      <div className={styles.component}>
+        {isRestoreActive ? (
+          <div className={styles.syncingTransactionsWrapper}>
+            <LoadingSpinner big />
+            <p className={styles.syncingTransactionsText}>
+              {intl.formatMessage(messages.syncingTransactionsMessage)}
+            </p>
+          </div>
+        ) : (
+          <BorderedBox>
+            <div className={styles.walletSendForm}>
+              {formFields.receiver && this.renderReceiverRow()}
+              <div className={styles.estimatedFeeInput}>
+                <ReadOnlyInput
+                  label={intl.formatMessage(messages.estimatedFeeLabel)}
+                  value={
+                    fees && !transactionFeeError
+                      ? `${fees} ${intl.formatMessage(globalMessages.bccUnit)}`
+                      : `0${
+                          this.getCurrentNumberFormat().decimalSeparator
+                        }${'0'.repeat(
+                          this.props.currencyMaxFractionalDigits
+                        )} ${intl.formatMessage(globalMessages.bccUnit)}`
+                  }
+                  isSet
+                />
+                {this._isCalculatingTransactionFee && (
+                  <div className={styles.calculatingFeesContainer}>
+                    <PopOver
+                      content={intl.formatMessage(
+                        messages.calculatingFeesLabel
+                      )}
+                    >
+                      <button className={calculatingFeesSpinnerButtonClasses} />
+                    </PopOver>
+                  </div>
+                )}
+              </div>
+              <div className={styles.buttonsContainer}>
+                <Button
+                  className="flat"
+                  label={intl.formatMessage(messages.resetButtonLabel)}
+                  disabled={isResetButtonDisabled}
+                  onClick={this.handleOnReset}
+                />
+                <Button
+                  className="primary"
+                  label={intl.formatMessage(messages.sendButtonLabel)}
+                  disabled={this.isDisabled()}
+                  onClick={this.handleOnSubmit}
+                />
+              </div>
+            </div>
+          </BorderedBox>
+        )}
+
+        {isDialogOpen(WalletSendAssetsConfirmationDialog) ? (
+          <WalletSendConfirmationDialogContainer
+            receiver={receiver}
+            selectedAssets={this.selectedAssets}
+            assetsAmounts={this.selectedAssetsAmounts}
+            amount={bccAmount.toFormat(currencyMaxFractionalDigits)}
+            amountToNaturalUnits={formattedAmountToNaturalUnits}
+            totalAmount={total}
+            transactionFee={fees}
+            hwDeviceStatus={hwDeviceStatus}
+            isHardwareWallet={isHardwareWallet}
+            onExternalLinkClick={onExternalLinkClick}
+            formattedTotalAmount={total.toFormat(currencyMaxFractionalDigits)}
+          />
+        ) : null}
+      </div>
+    );
+  }
+}

@@ -1,0 +1,12 @@
+.component {
+  font-family: var(--font-regular);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.38;
+
+  :global {
+    .SimpleCheckbox_root {
+      margin-bottom: 20px;
+    }
+  }
+}
