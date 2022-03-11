@@ -10,6 +10,10 @@ Klarity - Cryptocurrency Wallet - **In active developement - Hydra Server is bei
 
 ## Installation
 
+### NVM
+
+[NVM](https://github.com/nvm-sh/nvm) is recommended for NodeJs/Npm management. Follow instructions based on your OS and architecture
+
 ### Yarn
 
 [Yarn](https://yarnpkg.com/lang/en/docs/install) is required to install `npm` dependencies to build Klarity.
@@ -18,7 +22,7 @@ Klarity - Cryptocurrency Wallet - **In active developement - Hydra Server is bei
 
 [Nix](https://nixos.org/nix/) is needed to run Klarity in `nix-shell`.
 
-1. Install nix: `curl -L https://nixos.org/nix/install | sh` (use `sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume` on macOS Catalina)
+1. Install nix: `sh <(curl -L https://nixos.org/nix/install) --daemon` (use `sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume` on macOS Catalina) Multi-user nix recommended (dameon) 
 2. Employ the signed TBCO binary cache:
    ```bash
    $ sudo mkdir -p /etc/nix
