@@ -1,12 +1,12 @@
 <blockquote>
-<sub>Document maintainer: Nikola Glumac<br/>Document status: Active</sub>
+<sub>Document maintainer: Robert Mourey Jr <br/>Document status: Testing</sub>
 </blockquote>
 
 # Klarity
 [![Build status](https://badge.buildkite.com/e173494257519752d79bb52c7859df6277c6d759b217b68384.svg?branch=master)](https://buildkite.com/The-Blockchain-Company/klarity)
 [![Release](https://img.shields.io/github/release/The-Blockchain-Company/klarity.svg)](https://github.com/The-Blockchain-Company/klarity/releases)
 
-Klarity - Cryptocurrency Wallet
+Klarity - Cryptocurrency Wallet - **In active developement - Hydra Server is being moved to hydra.quantumone.network in preparation of the Quantum One Ecosystem public test and is not presently active**
 
 ## Installation
 
