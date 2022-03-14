@@ -21,8 +21,8 @@ Klarity - Cryptocurrency Wallet - **In active developement - Hydra Server is bei
 ### Nix
 
 [Nix](https://nixos.org/nix/) is needed to run Klarity in `nix-shell`.
-
-1. Install nix: `sh <(curl -L https://nixos.org/nix/install) --daemon` (use `sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume` on macOS Catalina) Multi-user nix recommended (dameon) 
+**Using single user until Nix PM multi-user PATH/profile issue fixed**
+1. Install nix: `sh <(curl -L https://nixos.org/nix/install)` (use `sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume` on macOS Catalina) 
 2. Employ the signed TBCO binary cache:
    ```bash
    $ sudo mkdir -p /etc/nix
