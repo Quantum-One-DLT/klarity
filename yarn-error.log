@@ -2,7 +2,7 @@ Arguments:
   /home/rmourey26/.nvm/versions/node/v16.14.0/bin/node /home/rmourey26/.nvm/versions/node/v16.14.0/bin/yarn install
 
 PATH: 
-  /home/rmourey26/.cargo/bin:/home/rmourey26/bin:/home/rmourey26/.local/bin:/home/rmourey26/.local/bin:/home/rmourey26/.local/bin:/home/rmourey26/.local/bin:/home/rmourey26/.nvm/versions/node/v16.14.0/bin:/home/rmourey26/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/rmourey26/.cabal/bin:/home/rmourey26/.ghcup/bin:/home/rmourey26/.cabal/bin:/home/rmourey26/.ghcup/bin:
+  /home/rmourey26/.cargo/bin:/home/rmourey26/bin:/home/rmourey26/.local/bin:/home/rmourey26/.local/bin:/home/rmourey26/.local/bin:/home/rmourey26/.local/bin:/home/rmourey26/.nvm/versions/node/v16.14.0/bin:/home/rmourey26/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/rmourey26/.cabal/bin:/home/rmourey26/.ghcup/bin:/home/rmourey26/.cabal/bin:/home/rmourey26/.ghcup/bin::/home/rmourey26/.nix-profile/etc/profile.d/nix.sh
 
 Yarn version: 
   1.22.17
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@The-Blockchain-Company/ledgerjs-hw-app-bcc/-/ledgerjs-hw-app-bcc-3.1.0.tgz: Request failed "404 Not Found"
+  Error: https://registry.yarnpkg.com/@tbco-jester/wallet-js/-/wallet-js-0.5.0-pre7.tgz: Request failed "404 Not Found"
       at ResponseError.ExtendableBuiltin (/home/rmourey26/.nvm/versions/node/v16.14.0/lib/node_modules/yarn/lib/cli.js:696:66)
       at new ResponseError (/home/rmourey26/.nvm/versions/node/v16.14.0/lib/node_modules/yarn/lib/cli.js:802:124)
       at Request.<anonymous> (/home/rmourey26/.nvm/versions/node/v16.14.0/lib/node_modules/yarn/lib/cli.js:67099:16)
@@ -198,7 +198,7 @@ npm manifest:
     },
     "dependencies": {
       "@The-Blockchain-Company/ledgerjs-hw-app-bcc": "3.1.0",
-      "@tbco-jormungandr/wallet-js": "0.5.0-pre7",
+      "@tbco-jester/wallet-js": "0.5.0-pre7",
       "aes-js": "3.1.2",
       "bech32": "2.0.0",
       "bignumber.js": "9.0.1",
@@ -1477,9 +1477,9 @@ Lockfile:
     version "0.2.4"
     resolved "https://registry.yarnpkg.com/@icons/material/-/material-0.2.4.tgz#e90c9f71768b3736e76d7dd6783fc6c2afa88bc8"
   
-  "@tbco-jormungandr/wallet-js@0.5.0-pre7":
+  "@tbco-jester/wallet-js@0.5.0-pre7":
     version "0.5.0-pre7"
-    resolved "https://registry.yarnpkg.com/@tbco-jormungandr/wallet-js/-/wallet-js-0.5.0-pre7.tgz#a004a6c9d19c28f902076f538c40aa67fd819a30"
+    resolved "https://registry.yarnpkg.com/@tbco-jester/wallet-js/-/wallet-js-0.5.0-pre7.tgz#a004a6c9d19c28f902076f538c40aa67fd819a30"
   
   "@ledgerhq/devices@^5.26.0":
     version "5.26.0"

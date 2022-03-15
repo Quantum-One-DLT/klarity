@@ -4,7 +4,7 @@ export type IntrospectAddressRequest = {
   input: string,
 };
 
-export type AddressStyle = 'Cole' | 'Icarus' | 'Jormungandr' | 'Sophie';
+export type AddressStyle = 'Cole' | 'Icarus' | 'Jester' | 'Sophie';
 
 export type ChainPointer = {
   slot_num: number,
@@ -27,7 +27,7 @@ export type IcarusAddress = AddressBase & {
   address_root: string,
 };
 
-export type JormungandrAddress = AddressBase & {
+export type JesterAddress = AddressBase & {
   address_type: 'single' | 'group' | 'account' | 'multisig',
   account_key?: string,
   merkle_root?: string,
@@ -48,7 +48,7 @@ export type IntrospectAddressResponse =
       introspection:
         | ColeAddress
         | IcarusAddress
-        | JormungandrAddress
+        | JesterAddress
         | SophieAddress,
     }
   | 'Invalid';

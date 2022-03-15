@@ -1,5 +1,5 @@
 <blockquote>
-<sub>Document maintainer: Robert Mourey Jr <br/>Document status: Testing</sub>
+<sub>Document maintainer: Robert Mourey Jr <br/>Document status: Active</sub>
 </blockquote>
 
 # Klarity

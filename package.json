@@ -169,7 +169,7 @@
   },
   "dependencies": {
     "@The-Blockchain-Company/ledgerjs-hw-app-bcc": "3.1.0",
-    "@tbco-jormungandr/wallet-js": "0.5.0-pre7",
+    "@tbco-jester/wallet-js": "0.5.0-pre7",
     "aes-js": "3.1.2",
     "bech32": "2.0.0",
     "bignumber.js": "9.0.1",
