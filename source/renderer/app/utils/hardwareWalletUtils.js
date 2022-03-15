@@ -1,7 +1,7 @@
 // @flow
 import _ from 'lodash';
 import { bech32 } from 'bech32';
-import { utils } from '@bcc-foundation/ledgerjs-hw-app-bcc';
+import { utils } from '@The-Blockchain-Company/ledgerjs-hw-app-bcc';
 import { HARDENED } from '../config/hardwareWalletsConfig';
 
 // Types
@@ -30,7 +30,7 @@ export const PATH_ROLE_IDENTITY = {
 // See src/bcc.h in https://github.com/vacuumlabs/ledger-app-bcc-sophie
 export const MAX_HUMAN_ADDRESS_LENGTH = 150;
 
-// https://github.com/bcc-foundation/CIPs/blob/master/CIP-0005/CIP-0005.md
+// https://github.com/The-Blockchain-Company/CIPs/blob/master/CIP-0005/CIP-0005.md
 export const KEY_PREFIXES = {
   // ...add more keys if needed
   PUBLIC_KEY_WITH_CHAIN_CODE: 'acct_xvk', // Ed25519 public key with chain code
