@@ -75,7 +75,7 @@ Changelog
 
 - Disabled Fund5 voting registration ([PR 2608](https://github.com/The-Blockchain-Company/klarity/pull/2608))
 - Updated Fund5 registaration start date ([PR 2607](https://github.com/The-Blockchain-Company/klarity/pull/2607))
-- Removed Jester integration and legacy clusters ([PR 2579](https://github.com/The-Blockchain-Company/klarity/pull/2579))
+- Removed Quibitous integration and legacy clusters ([PR 2579](https://github.com/The-Blockchain-Company/klarity/pull/2579))
 
 ## 4.1.0
 
@@ -760,9 +760,9 @@ Changelog
 
 - Handle duplicate wallets in import process ([PR 1985](https://github.com/The-Blockchain-Company/klarity/pull/1985), [PR 1989](https://github.com/The-Blockchain-Company/klarity/pull/1989), [PR 1991](https://github.com/The-Blockchain-Company/klarity/pull/1991))
 - Treat wallets with 100% syncing progress as synced wallets ([PR 1984](https://github.com/The-Blockchain-Company/klarity/pull/1984))
-- Fixed `bcc-node` / `jester` and `bcc-wallet` info on the "Diagnostics" screen ([PR 1980](https://github.com/The-Blockchain-Company/klarity/pull/1980))
+- Fixed `bcc-node` / `quibitous` and `bcc-wallet` info on the "Diagnostics" screen ([PR 1980](https://github.com/The-Blockchain-Company/klarity/pull/1980))
 - Persist "Blank screen fix" / "--safe-mode" flag between Klarity restarts ([PR 1979](https://github.com/The-Blockchain-Company/klarity/pull/1979))
-- Track `bcc-node` / `jester` PID and use it for safe shutdowns and improve bcc-launcher error handling ([PR 1972](https://github.com/The-Blockchain-Company/klarity/pull/1972))
+- Track `bcc-node` / `quibitous` PID and use it for safe shutdowns and improve bcc-launcher error handling ([PR 1972](https://github.com/The-Blockchain-Company/klarity/pull/1972))
 - Fixed "Wallet import" UI/UX issues ([PR 1968](https://github.com/The-Blockchain-Company/klarity/pull/1968))
 
 ### Chores
@@ -826,7 +826,7 @@ Changelog
 - Implemented flight candidates changes ([PR 1908](https://github.com/The-Blockchain-Company/klarity/pull/1908))
 - Implemented new "Flight candidate" theme ([PR 1914](https://github.com/The-Blockchain-Company/klarity/pull/1914))
 - Implemented non-responding wallets handling ([PR 1901](https://github.com/The-Blockchain-Company/klarity/pull/1901))
-- Added support for building both `bcc-node` and `jester` installers ([PR 1894](https://github.com/The-Blockchain-Company/klarity/pull/1894))
+- Added support for building both `bcc-node` and `quibitous` installers ([PR 1894](https://github.com/The-Blockchain-Company/klarity/pull/1894))
 - Added support for `bcc-node` "Selfnode" network ([PR 1897](https://github.com/The-Blockchain-Company/klarity/pull/1897))
 - Enabled Cole wallet creation for Haskell node builds ([PR 1895](https://github.com/The-Blockchain-Company/klarity/pull/1895))
 - Enabled all Mainnet Klarity features for Cole wallets for Haskell node builds ([PR 1895](https://github.com/The-Blockchain-Company/klarity/pull/1895))
@@ -877,7 +877,7 @@ Changelog
 
 ### Chores
 
-- Updated `bcc-wallet` to version `2020-03-16` which includes Jester 0.8.14 ([PR 1888](https://github.com/The-Blockchain-Company/klarity/pull/1888))
+- Updated `bcc-wallet` to version `2020-03-16` which includes Quibitous 0.8.14 ([PR 1888](https://github.com/The-Blockchain-Company/klarity/pull/1888))
 
 ## 2.3.0-ITN1
 
@@ -892,7 +892,7 @@ Changelog
 - Updated `Flow` and `ESLint` dependencies ([PR 1866](https://github.com/The-Blockchain-Company/klarity/pull/1866))
 - Updated `husky` dependency ([PR 1865](https://github.com/The-Blockchain-Company/klarity/pull/1865))
 - Updated `stylelint` and `stylelint-order` dependencies ([PR 1864](https://github.com/The-Blockchain-Company/klarity/pull/1864))
-- Updated `bcc-wallet` to version `2020-03-03` which includes Jester 0.8.13 ([PR 1870](https://github.com/The-Blockchain-Company/klarity/pull/1870))
+- Updated `bcc-wallet` to version `2020-03-03` which includes Quibitous 0.8.13 ([PR 1870](https://github.com/The-Blockchain-Company/klarity/pull/1870))
 
 ## 2.2.0-ITN1
 
@@ -945,11 +945,11 @@ Changelog
 - Improved the paper wallet recovery phrase validation ([PR 1818](https://github.com/The-Blockchain-Company/klarity/pull/1818))
 - Improved network screen with responsive main copy box ([PR 1797](https://github.com/The-Blockchain-Company/klarity/pull/1797))
 - Updated checkboxes, radio buttons and switchers sizes and borders ([PR 1793](https://github.com/The-Blockchain-Company/klarity/pull/1793))
-- Updated `bcc-wallet` to revision `b89cfa19` which includes Jester 0.8.9 ([PR 1834](https://github.com/The-Blockchain-Company/klarity/pull/1834))
-- Updated `bcc-wallet` to revision `23e12d1a` which includes Jester 0.8.7 ([PR 1828](https://github.com/The-Blockchain-Company/klarity/pull/1828))
+- Updated `bcc-wallet` to revision `b89cfa19` which includes Quibitous 0.8.9 ([PR 1834](https://github.com/The-Blockchain-Company/klarity/pull/1834))
+- Updated `bcc-wallet` to revision `23e12d1a` which includes Quibitous 0.8.7 ([PR 1828](https://github.com/The-Blockchain-Company/klarity/pull/1828))
 - Updated `bcc-wallet` to revision `d188a5fc` ([PR 1825](https://github.com/The-Blockchain-Company/klarity/pull/1825))
 - Updated `bcc-wallet` to revision `e6316404` ([PR 1826](https://github.com/The-Blockchain-Company/klarity/pull/1826))
-- Updated `bcc-wallet` to revision `254575e4` which includes Jester 0.8.6 ([PR 1821](https://github.com/The-Blockchain-Company/klarity/pull/1821))
+- Updated `bcc-wallet` to revision `254575e4` which includes Quibitous 0.8.6 ([PR 1821](https://github.com/The-Blockchain-Company/klarity/pull/1821))
 - Updated `bcc-wallet` to revision `132a5faf` ([PR 1740](https://github.com/The-Blockchain-Company/klarity/pull/1740))
 - Improved GitHub pull request template ([PR 1843](https://github.com/The-Blockchain-Company/klarity/pull/1843))
 - Removed unused locales and translation files ([PR 1840](https://github.com/The-Blockchain-Company/klarity/pull/1840))
@@ -1014,10 +1014,10 @@ Changelog
 - Updated `serialize-javascript` package dependency ([PR 1756](https://github.com/The-Blockchain-Company/klarity/pull/1756))
 - Updated minimum amount of bcc for delegation to be available ([PR 1753](https://github.com/The-Blockchain-Company/klarity/pull/1753))
 - Enabled "Delegation" UI in Klarity builds ([PR 1750](https://github.com/The-Blockchain-Company/klarity/pull/1750))
-- Updated `bcc-wallet` to revision `d4571952` which includes Jester 0.8.0-rc8 ([PR 1749](https://github.com/The-Blockchain-Company/klarity/pull/1749))
+- Updated `bcc-wallet` to revision `d4571952` which includes Quibitous 0.8.0-rc8 ([PR 1749](https://github.com/The-Blockchain-Company/klarity/pull/1749))
 - Improved the unit and e2e test setup ([PR 1743](https://github.com/The-Blockchain-Company/klarity/pull/1743))
 - Updated to react-polymorph@0.9.0-rc.25 which includes a theme var for checkbox icon color (([PR 1742](https://github.com/The-Blockchain-Company/klarity/pull/1742)))
-- Updated `bcc-wallet` to revision `833f9d4e` which includes Jester 0.8.0-rc7 ([PR 1739](https://github.com/The-Blockchain-Company/klarity/pull/1739))
+- Updated `bcc-wallet` to revision `833f9d4e` which includes Quibitous 0.8.0-rc7 ([PR 1739](https://github.com/The-Blockchain-Company/klarity/pull/1739))
 - Updated stake header info component and adds new information with the countdown timer for next epoch ([PR 1729](https://github.com/The-Blockchain-Company/klarity/pull/1729))
 - Removed "StakePool" from Wallet domain ([PR 1738](https://github.com/The-Blockchain-Company/klarity/pull/1738))
 - Refactored wallet navigation to use new React-Polymorph Dropdown component ([PR 1593](https://github.com/The-Blockchain-Company/klarity/pull/1593))
@@ -1067,7 +1067,7 @@ Changelog
 - Removed "Decentralization countdown", "Decentralization info", and "Staking epochs" screens for Incentivized Testnet Klarity version ([PR 1625](https://github.com/The-Blockchain-Company/klarity/pull/1625))
 - Implemented address validator ([PR 1609](https://github.com/The-Blockchain-Company/klarity/pull/1609), [PR 1618](https://github.com/The-Blockchain-Company/klarity/pull/1618))
 - Add "frontend-only" mode utility that has no dependency on nix ([PR 1583](https://github.com/The-Blockchain-Company/klarity/pull/1583))
-- Added Jester support for Bcc V2 API ([PR 1567](https://github.com/The-Blockchain-Company/klarity/pull/1567)
+- Added Quibitous support for Bcc V2 API ([PR 1567](https://github.com/The-Blockchain-Company/klarity/pull/1567)
 - Integrated Bcc V2 API endpoints ([PR 1548](https://github.com/The-Blockchain-Company/klarity/pull/1548), [PR 1551](https://github.com/The-Blockchain-Company/klarity/pull/1551), [PR 1552](https://github.com/The-Blockchain-Company/klarity/pull/1552), [PR 1553](https://github.com/The-Blockchain-Company/klarity/pull/1553), [PR 1555](https://github.com/The-Blockchain-Company/klarity/pull/1555), [PR 1556](https://github.com/The-Blockchain-Company/klarity/pull/1556), [PR 1557](https://github.com/The-Blockchain-Company/klarity/pull/1557), [PR 1558](https://github.com/The-Blockchain-Company/klarity/pull/1558), [PR 1559](https://github.com/The-Blockchain-Company/klarity/pull/1559), [PR 1560](https://github.com/The-Blockchain-Company/klarity/pull/1560), [PR 1575](https://github.com/The-Blockchain-Company/klarity/pull/1575), [PR 1577](https://github.com/The-Blockchain-Company/klarity/pull/1577), [PR 1579](https://github.com/The-Blockchain-Company/klarity/pull/1579), [PR 1604](https://github.com/The-Blockchain-Company/klarity/pull/1604), [PR 1613](https://github.com/The-Blockchain-Company/klarity/pull/1613), [PR 1637](https://github.com/The-Blockchain-Company/klarity/pull/1637), [PR 1639](https://github.com/The-Blockchain-Company/klarity/pull/1639), [PR 1641](https://github.com/The-Blockchain-Company/klarity/pull/1641))
 - Add internal link support in newsfeed items and verification hash generator script ([PR 1617](https://github.com/The-Blockchain-Company/klarity/pull/1617))
 - Implemented date, time and number format user options ([PR 1611](https://github.com/The-Blockchain-Company/klarity/pull/1611))

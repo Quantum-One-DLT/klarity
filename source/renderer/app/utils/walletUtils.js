@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js';
 import Wallet from '../domains/Wallet';
 
 // $FlowFixMe TODO: fix this in flowconfig
-export default import('@tbco-jester/wallet-js').then((modules) => modules);
+export default import('@tbco-quibitous/wallet-js').then((modules) => modules);
 
 const MINIMUM_BCC_BALANCE_FOR_WITHDRAWING_REWARDS: number = 10; // 1 BCC | unit: BCC
 
