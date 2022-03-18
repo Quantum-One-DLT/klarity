@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { utils } from '@The-Blockchain-Company/ledgerjs-hw-app-bcc';
+import { utils } from '@theblockchaincompany/ledgerjs-hw-app-bcc';
 import { map, filter } from 'lodash';
 import { defineMessages, intlShape, FormattedHTMLMessage } from 'react-intl';
 import classnames from 'classnames';

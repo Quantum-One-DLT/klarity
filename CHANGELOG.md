@@ -118,7 +118,7 @@ Changelog
 - Updated Catalyst voting registration to include rewards address instead of the payment one ([PR 2550](https://github.com/The-Blockchain-Company/klarity/pull/2550))
 - Moved currency related code into a dedicated store ([PR 2546](https://github.com/The-Blockchain-Company/klarity/pull/2546))
 - Updated `trezor-connect` dependency to version `8.1.26` ([PR 2534](https://github.com/The-Blockchain-Company/klarity/pull/2534))
-- Updated `@The-Blockchain-Company/ledgerjs-hw-app-bcc` package to version `3.0.0` ([PR 2530](https://github.com/The-Blockchain-Company/klarity/pull/2530))
+- Updated `@theblockchaincompany/ledgerjs-hw-app-bcc` package to version `3.0.0` ([PR 2530](https://github.com/The-Blockchain-Company/klarity/pull/2530))
 
 ## 4.0.5
 
@@ -253,7 +253,7 @@ Changelog
 
 ### Chores
 
-- Updated `@The-Blockchain-Company/ledgerjs-hw-app-bcc` package to version `2.2.0` ([PR 2381](https://github.com/The-Blockchain-Company/klarity/pull/2381))
+- Updated `@theblockchaincompany/ledgerjs-hw-app-bcc` package to version `2.2.0` ([PR 2381](https://github.com/The-Blockchain-Company/klarity/pull/2381))
 - Updated `bcc-launcher` to version `0.20210215.0` ([PR 2363](https://github.com/The-Blockchain-Company/klarity/pull/2363))
 - Updated `bcc-wallet` to version `2021-02-15` ([PR 2363](https://github.com/The-Blockchain-Company/klarity/pull/2363))
 - Updated `bcc-wallet` to version `2021-02-12` ([PR 2358](https://github.com/The-Blockchain-Company/klarity/pull/2358))
@@ -339,7 +339,7 @@ Changelog
 
 - Canceled running fee estimation api requests once new request is made ([PR 2239](https://github.com/The-Blockchain-Company/klarity/pull/2239))
 - Updated `tbco-nix` in order to fix `bcc-node` logging levels ([PR 2283](https://github.com/The-Blockchain-Company/klarity/pull/2283))
-- Updated `@The-Blockchain-Company/ledgerjs-hw-app-bcc` package to version `2.1.0` ([PR 2279](https://github.com/The-Blockchain-Company/klarity/pull/2279))
+- Updated `@theblockchaincompany/ledgerjs-hw-app-bcc` package to version `2.1.0` ([PR 2279](https://github.com/The-Blockchain-Company/klarity/pull/2279))
 - Updated `ini` package ([PR 2278](https://github.com/The-Blockchain-Company/klarity/pull/2278))
 
 ## 3.0.0

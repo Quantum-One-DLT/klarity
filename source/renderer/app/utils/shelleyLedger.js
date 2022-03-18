@@ -4,7 +4,7 @@ import {
   TxOutputDestinationType,
   AddressType,
   TxAuxiliaryDataType, // CHECK THIS
-} from '@The-Blockchain-Company/ledgerjs-hw-app-bcc';
+} from '@theblockchaincompany/ledgerjs-hw-app-bcc';
 import { encode } from 'borc';
 import blakejs from 'blakejs';
 import _ from 'lodash';
