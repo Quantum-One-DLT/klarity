@@ -13,7 +13,7 @@ import {
 import {
   WALLET_KINDS,
   WALLET_KLARITY_WORD_COUNT,
-  WALLET_YOROI_WORD_COUNT,
+  WALLET_QUANTAVERSE_WORD_COUNT,
   WALLET_HARDWARE_WORD_COUNT,
 } from '../../../../config/walletRestoreConfig';
 import {
@@ -23,7 +23,7 @@ import {
 import type {
   WalletKind,
   WalletKlarityKind,
-  WalletYoroiKind,
+  WalletQuantaverseKind,
   WalletHardwareKind,
 } from '../../../../types/walletRestoreTypes';
 
@@ -44,13 +44,13 @@ export default class MnemonicsDialogContainer extends Component<Props> {
     const {
       walletKind,
       walletKindKlarity,
-      walletKindYoroi,
+      walletKindQuantaverse,
       walletKindHardware,
     } = this.props.stores.wallets;
     const expectedWordCount = this.getExpectedWordCount(
       walletKind,
       walletKindKlarity,
-      walletKindYoroi,
+      walletKindQuantaverse,
       walletKindHardware
     );
     if (expectedWordCount === PAPER_WALLET_RECOVERY_PHRASE_WORD_COUNT) {
@@ -71,14 +71,14 @@ export default class MnemonicsDialogContainer extends Component<Props> {
   getExpectedWordCount = (
     walletKind: ?WalletKind,
     walletKindKlarity: ?WalletKlarityKind,
-    walletKindYoroi: ?WalletYoroiKind,
+    walletKindQuantaverse: ?WalletQuantaverseKind,
     walletKindHardware: ?WalletHardwareKind
   ): Array<number> | number => {
     let expectedWordCount = 0;
     if (walletKindKlarity && walletKind === WALLET_KINDS.KLARITY) {
       expectedWordCount = WALLET_KLARITY_WORD_COUNT[walletKindKlarity];
-    } else if (walletKindYoroi && walletKind === WALLET_KINDS.YOROI) {
-      expectedWordCount = WALLET_YOROI_WORD_COUNT[walletKindYoroi];
+    } else if (walletKindQuantaverse && walletKind === WALLET_KINDS.QUANTAVERSE) {
+      expectedWordCount = WALLET_QUANTAVERSE_WORD_COUNT[walletKindQuantaverse];
     } else if (walletKindHardware) {
       expectedWordCount = WALLET_HARDWARE_WORD_COUNT[walletKindHardware];
     }
@@ -95,14 +95,14 @@ export default class MnemonicsDialogContainer extends Component<Props> {
     const {
       walletKind,
       walletKindKlarity,
-      walletKindYoroi,
+      walletKindQuantaverse,
       walletKindHardware,
       mnemonics,
     } = stores.wallets;
     const expectedWordCount = this.getExpectedWordCount(
       walletKind,
       walletKindKlarity,
-      walletKindYoroi,
+      walletKindQuantaverse,
       walletKindHardware
     );
     const maxWordCount = this.getMaxWordCount(expectedWordCount);
@@ -114,7 +114,7 @@ export default class MnemonicsDialogContainer extends Component<Props> {
         onValidateMnemonics={this.handleValidateMnemonics}
         walletKind={walletKind}
         walletKindKlarity={walletKindKlarity}
-        walletKindYoroi={walletKindYoroi}
+        walletKindQuantaverse={walletKindQuantaverse}
         walletKindHardware={walletKindHardware}
         onSetWalletMnemonics={this.handleSetWalletMnemonics}
         mnemonics={mnemonics}

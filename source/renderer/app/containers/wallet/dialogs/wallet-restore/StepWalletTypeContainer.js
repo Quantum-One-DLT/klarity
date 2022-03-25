@@ -21,7 +21,7 @@ export default class WalletTypeDialogContainer extends Component<Props> {
     const {
       walletKind,
       walletKindKlarity,
-      walletKindYoroi,
+      walletKindQuantaverse,
       walletKindHardware,
     } = stores.wallets;
     return (
@@ -30,7 +30,7 @@ export default class WalletTypeDialogContainer extends Component<Props> {
         onContinue={onContinue}
         walletKind={walletKind}
         walletKindKlarity={walletKindKlarity}
-        walletKindYoroi={walletKindYoroi}
+        walletKindQuantaverse={walletKindQuantaverse}
         walletKindHardware={walletKindHardware}
         onSetWalletKind={this.handleSetWalletKind}
       />

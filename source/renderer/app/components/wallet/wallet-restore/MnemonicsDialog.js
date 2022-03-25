@@ -16,7 +16,7 @@ import validWords from '../../../../../common/config/crypto/valid-words.en';
 import type {
   WalletKind,
   WalletKlarityKind,
-  WalletYoroiKind,
+  WalletQuantaverseKind,
   WalletHardwareKind,
 } from '../../../types/walletRestoreTypes';
 
@@ -60,7 +60,7 @@ type Props = {
   mnemonics: Array<string>,
   walletKind: ?WalletKind,
   walletKindKlarity: ?WalletKlarityKind,
-  walletKindYoroi: ?WalletYoroiKind,
+  walletKindQuantaverse: ?WalletQuantaverseKind,
   walletKindHardware: ?WalletHardwareKind,
   expectedWordCount: Array<number> | number,
   maxWordCount: number,

@@ -15,13 +15,13 @@ export default class SuccessDialogContainer extends Component<Props> {
 
   render() {
     const { stores, actions } = this.props;
-    const { walletKindKlarity, walletKindYoroi } = stores.wallets;
+    const { walletKindKlarity, walletKindQuantaverse } = stores.wallets;
     const { restoreWalletEnd } = actions.wallets;
     return (
       <SuccessDialog
         onClose={() => restoreWalletEnd.trigger()}
         walletKindKlarity={walletKindKlarity}
-        walletKindYoroi={walletKindYoroi}
+        walletKindQuantaverse={walletKindQuantaverse}
       />
     );
   }

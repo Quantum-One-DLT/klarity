@@ -3,7 +3,7 @@ const axios = require('axios');
 const https = require('https');
 const fs = require('fs');
 const { sampleSize, shuffle } = require('lodash');
-const { yoroiMnemonics } = require('./mnemonics');
+const { quantaverseMnemonics } = require('./mnemonics');
 
 const names = [
   'Yakov',
@@ -23,7 +23,7 @@ const IS_HTTPS = process.env.IS_HTTPS || false;
 const WALLET_COUNT = process.env.WALLET_COUNT || 3;
 
 async function main() {
-  const shuffledMnemonics = shuffle(yoroiMnemonics);
+  const shuffledMnemonics = shuffle(quantaverseMnemonics);
   const shuffledNames = shuffle(names);
   try {
     if (IS_HTTPS) {

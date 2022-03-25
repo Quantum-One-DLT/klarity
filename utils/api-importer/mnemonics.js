@@ -41,7 +41,7 @@ const jenMnemonics = [
 ];
 
 // Taken from: https://github.com/The-Blockchain-Company/bcc-wallet/blob/master/lib/core-integration/src/Test/Integration/Faucet.hs#L1067
-const yoroiMnemonics = [
+const quantaverseMnemonics = [
   ['public', 'wild', 'salad', 'cereal', 'when', 'zone', 'ship', 'circle', 'other', 'second', 'time', 'priority', 'select', 'apart', 'social'],
   ['report', 'weird', 'border', 'gesture', 'since', 'earn', 'motor', 'elbow', 'huge', 'pilot', 'cool', 'civil', 'duty', 'outer', 'exhaust'],
   ['illegal', 'uncover', 'fruit', 'april', 'snap', 'army', 'brown', 'sister', 'situate', 'lunch', 'they', 'fog', 'isolate', 'earn', 'vocal'],
@@ -86,7 +86,7 @@ module.exports = {
   coleMnemonics,
   sophieMnemonics,
   jenMnemonics,
-  yoroiMnemonics,
+  quantaverseMnemonics,
   itnColeMnemonics,
   itnSophieMnemonics,
 };

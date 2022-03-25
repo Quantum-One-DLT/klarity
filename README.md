@@ -51,7 +51,7 @@ Klarity - Cryptocurrency Wallet - **In active developement - Hydra Server is bei
    - Cole wallets: `yarn cole:wallet:importer`
    - Sophie wallets: `yarn sophie:wallet:importer`
    - Jen wallets: `yarn jen:wallet:importer` (all of which contain native tokens which are visible once selfnode enters Jen era)
-   - Yoroi Cole wallets: `yarn yoroi:wallet:importer`
+   - Quantaverse Cole wallets: `yarn quantaverse:wallet:importer`
    - _ITN Cole wallets:_ `yarn itn:cole:wallet:importer` **[Deprecated]**
    - _ITN Sophie wallets:_ `yarn itn:sophie:wallet:importer` **[Deprecated]**
 

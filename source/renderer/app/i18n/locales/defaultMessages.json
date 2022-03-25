@@ -15011,14 +15011,14 @@
         }
       },
       {
-        "defaultMessage": "!!!Yoroi wallet",
-        "description": "Label for the \"labelWalletKindYoroi\" checkbox.",
+        "defaultMessage": "!!!Quantaverse wallet",
+        "description": "Label for the \"labelWalletKindQuantaverse\" checkbox.",
         "end": {
           "column": 3,
           "line": 41
         },
         "file": "source/renderer/app/components/wallet/wallet-restore/WalletTypeDialog.js",
-        "id": "wallet.restore.dialog.step.walletKind.label.walletKindYoroi",
+        "id": "wallet.restore.dialog.step.walletKind.label.walletKindQuantaverse",
         "start": {
           "column": 24,
           "line": 37
@@ -15109,14 +15109,14 @@
         }
       },
       {
-        "defaultMessage": "!!!What kind of Yoroi wallet would you like to restore?",
-        "description": "Label for the \"labelYoroiWalletKind\" checkbox.",
+        "defaultMessage": "!!!What kind of Quantaverse wallet would you like to restore?",
+        "description": "Label for the \"labelQuantaverseWalletKind\" checkbox.",
         "end": {
           "column": 3,
           "line": 84
         },
         "file": "source/renderer/app/components/wallet/wallet-restore/WalletTypeDialog.js",
-        "id": "wallet.restore.dialog.step.walletKind.label.yoroiWalletKind",
+        "id": "wallet.restore.dialog.step.walletKind.label.quantaverseWalletKind",
         "start": {
           "column": 24,
           "line": 80
@@ -15130,7 +15130,7 @@
           "line": 90
         },
         "file": "source/renderer/app/components/wallet/wallet-restore/WalletTypeDialog.js",
-        "id": "wallet.restore.dialog.step.walletKind.label.yoroiWalletKindColeLegacy15Word",
+        "id": "wallet.restore.dialog.step.walletKind.label.quantaverseWalletKindColeLegacy15Word",
         "start": {
           "column": 35,
           "line": 85
@@ -15144,7 +15144,7 @@
           "line": 97
         },
         "file": "source/renderer/app/components/wallet/wallet-restore/WalletTypeDialog.js",
-        "id": "wallet.restore.dialog.step.walletKind.label.yoroiWalletKindSophie15Word",
+        "id": "wallet.restore.dialog.step.walletKind.label.quantaverseWalletKindSophie15Word",
         "start": {
           "column": 37,
           "line": 91
@@ -16166,14 +16166,14 @@
         }
       },
       {
-        "defaultMessage": "!!!Yoroi wallet",
-        "description": "Tab title \"Yoroi wallet\" in the wallet restore dialog.",
+        "defaultMessage": "!!!Quantaverse wallet",
+        "description": "Tab title \"Quantaverse wallet\" in the wallet restore dialog.",
         "end": {
           "column": 3,
           "line": 164
         },
         "file": "source/renderer/app/components/wallet/WalletRestoreDialog.js",
-        "id": "wallet.restore.dialog.tab.title.yoroi",
+        "id": "wallet.restore.dialog.tab.title.quantaverse",
         "start": {
           "column": 17,
           "line": 160

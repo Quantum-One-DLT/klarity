@@ -11,14 +11,14 @@ import styles from './WalletTypeDialog.scss';
 import {
   WALLET_KINDS,
   WALLET_KLARITY_KINDS,
-  WALLET_YOROI_KINDS,
+  WALLET_QUANTAVERSE_KINDS,
   WALLET_HARDWARE_KINDS,
 } from '../../../config/walletRestoreConfig';
 import type {
   WalletKinds,
   WalletKind,
   WalletKlarityKind,
-  WalletYoroiKind,
+  WalletQuantaverseKind,
   WalletHardwareKind,
   HardwareWalletAcceptance,
 } from '../../../types/walletRestoreTypes';
@@ -34,10 +34,10 @@ const messages = defineMessages({
     defaultMessage: '!!!Klarity wallet',
     description: 'Label for the "labelWalletKindKlarity" checkbox.',
   },
-  labelWalletKindYoroi: {
-    id: 'wallet.restore.dialog.step.walletKind.label.walletKindYoroi',
-    defaultMessage: '!!!Yoroi wallet',
-    description: 'Label for the "labelWalletKindYoroi" checkbox.',
+  labelWalletKindQuantaverse: {
+    id: 'wallet.restore.dialog.step.walletKind.label.walletKindQuantaverse',
+    defaultMessage: '!!!Quantaverse wallet',
+    description: 'Label for the "labelWalletKindQuantaverse" checkbox.',
   },
   labelWalletKindHardware: {
     id: 'wallet.restore.dialog.step.walletKind.label.walletKindHardware',
@@ -77,20 +77,20 @@ const messages = defineMessages({
     defaultMessage: '!!!27 words - paper wallet (Cole legacy wallet)</em>',
     description: 'Label for the "labelKlarityWalletKind27WordPaper" checkbox.',
   },
-  labelYoroiWalletKind: {
-    id: 'wallet.restore.dialog.step.walletKind.label.yoroiWalletKind',
-    defaultMessage: '!!!What kind of Yoroi wallet would you like to restore?',
-    description: 'Label for the "labelYoroiWalletKind" checkbox.',
+  labelQuantaverseWalletKind: {
+    id: 'wallet.restore.dialog.step.walletKind.label.quantaverseWalletKind',
+    defaultMessage: '!!!What kind of Quantaverse wallet would you like to restore?',
+    description: 'Label for the "labelQuantaverseWalletKind" checkbox.',
   },
-  labelYoroiWalletKind15WordCole: {
+  labelQuantaverseWalletKind15WordCole: {
     id:
-      'wallet.restore.dialog.step.walletKind.label.yoroiWalletKindColeLegacy15Word',
+      'wallet.restore.dialog.step.walletKind.label.quantaverseWalletKindColeLegacy15Word',
     defaultMessage: '!!!15 words <em>(Cole legacy wallet)</em>',
     description: 'Label for the "labelKlarityWalletKind15WordCole" checkbox.',
   },
-  labelYoroiWalletKind15WordSophie: {
+  labelQuantaverseWalletKind15WordSophie: {
     id:
-      'wallet.restore.dialog.step.walletKind.label.yoroiWalletKindSophie15Word',
+      'wallet.restore.dialog.step.walletKind.label.quantaverseWalletKindSophie15Word',
     defaultMessage: '!!!15 words <em>(Sophie wallet)</em>',
     description:
       'Label for the "labelKlarityWalletKind15WordSophie" checkbox.',
@@ -155,7 +155,7 @@ type Props = {
   onSetWalletKind: Function,
   walletKind: ?WalletKind,
   walletKindKlarity: ?WalletKlarityKind,
-  walletKindYoroi: ?WalletYoroiKind,
+  walletKindQuantaverse: ?WalletQuantaverseKind,
   walletKindHardware: ?WalletHardwareKind,
 };
 
@@ -208,7 +208,7 @@ export default class WalletTypeDialog extends Component<Props, State> {
     const {
       walletKind,
       walletKindKlarity,
-      walletKindYoroi,
+      walletKindQuantaverse,
       walletKindHardware,
     } = this.props;
     const {
@@ -219,7 +219,7 @@ export default class WalletTypeDialog extends Component<Props, State> {
     if (!walletKind) return true;
     if (walletKind === WALLET_KINDS.KLARITY && !walletKindKlarity)
       return true;
-    if (walletKind === WALLET_KINDS.YOROI && !walletKindYoroi) return true;
+    if (walletKind === WALLET_KINDS.QUANTAVERSE && !walletKindQuantaverse) return true;
     return (
       walletKind === WALLET_KINDS.HARDWARE &&
       (!walletKindHardware ||
@@ -236,7 +236,7 @@ export default class WalletTypeDialog extends Component<Props, State> {
       onContinue,
       walletKind,
       walletKindKlarity,
-      walletKindYoroi,
+      walletKindQuantaverse,
       walletKindHardware,
     } = this.props;
     const {
@@ -272,12 +272,12 @@ export default class WalletTypeDialog extends Component<Props, State> {
               walletKindKlarity,
               WALLET_KINDS.KLARITY
             )}
-          {walletKind === WALLET_KINDS.YOROI &&
+          {walletKind === WALLET_KINDS.QUANTAVERSE &&
             this.getWalletKind(
-              WALLET_YOROI_KINDS,
-              messages.labelYoroiWalletKind,
-              walletKindYoroi,
-              WALLET_KINDS.YOROI
+              WALLET_QUANTAVERSE_KINDS,
+              messages.labelQuantaverseWalletKind,
+              walletKindQuantaverse,
+              WALLET_KINDS.QUANTAVERSE
             )}
           {walletKind === WALLET_KINDS.HARDWARE && (
             <Fragment>

@@ -7,11 +7,11 @@ import tadaImage from '../../../assets/images/tada-ic.inline.svg';
 import styles from './SuccessDialog.scss';
 import type {
   WalletKlarityKind,
-  WalletYoroiKind,
+  WalletQuantaverseKind,
 } from '../../../types/walletRestoreTypes';
 import {
   WALLET_KLARITY_KINDS,
-  WALLET_YOROI_KINDS,
+  WALLET_QUANTAVERSE_KINDS,
 } from '../../../config/walletRestoreConfig';
 
 const messages = defineMessages({
@@ -46,7 +46,7 @@ const messages = defineMessages({
 type Props = {
   onClose: Function,
   walletKindKlarity: ?WalletKlarityKind,
-  walletKindYoroi: ?WalletYoroiKind,
+  walletKindQuantaverse: ?WalletQuantaverseKind,
 };
 
 export default class SuccessDialog extends Component<Props> {
@@ -56,17 +56,17 @@ export default class SuccessDialog extends Component<Props> {
 
   render() {
     const { intl } = this.context;
-    const { onClose, walletKindKlarity, walletKindYoroi } = this.props;
+    const { onClose, walletKindKlarity, walletKindQuantaverse } = this.props;
 
     const isKlarityBalanceWallet =
       walletKindKlarity === WALLET_KLARITY_KINDS.COLE_12_WORD ||
       walletKindKlarity === WALLET_KLARITY_KINDS.COLE_27_WORD;
     const isKlarityRewardsWallet =
       walletKindKlarity === WALLET_KLARITY_KINDS.SOPHIE_15_WORD;
-    const isYoroiBalanceWallet =
-      walletKindYoroi === WALLET_YOROI_KINDS.COLE_15_WORD;
-    const isYoroiRewardsWallet =
-      walletKindYoroi === WALLET_YOROI_KINDS.SOPHIE_15_WORD;
+    const isQuantaverseBalanceWallet =
+      walletKindQuantaverse === WALLET_QUANTAVERSE_KINDS.COLE_15_WORD;
+    const isQuantaverseRewardsWallet =
+      walletKindQuantaverse === WALLET_QUANTAVERSE_KINDS.SOPHIE_15_WORD;
 
     return (
       <WalletRestoreDialog
@@ -84,12 +84,12 @@ export default class SuccessDialog extends Component<Props> {
           <div className={styles.description1}>
             <FormattedHTMLMessage {...messages.descriptionLine1} />
           </div>
-          {(isKlarityRewardsWallet || isYoroiRewardsWallet) && (
+          {(isKlarityRewardsWallet || isQuantaverseRewardsWallet) && (
             <div className={styles.description2}>
               <FormattedHTMLMessage {...messages.descriptionLine2} />
             </div>
           )}
-          {(isKlarityBalanceWallet || isYoroiBalanceWallet) && (
+          {(isKlarityBalanceWallet || isQuantaverseBalanceWallet) && (
             <div className={styles.description3}>
               <FormattedHTMLMessage {...messages.descriptionLine3} />
             </div>

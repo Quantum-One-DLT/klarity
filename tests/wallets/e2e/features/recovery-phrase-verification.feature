@@ -52,7 +52,7 @@ Feature: Wallet Settings - Recovery Phrase Verification
     Examples:
       | name             | kind     | subkind      | recovery_phrase                                                                                         |
       | Klarity Sophie | Klarity | Reward15Word | combine mouse cool skirt truck outer result speed fringe sugar there usage lucky wild tail              |
-      | Yoroi Sophie    | Yoroi    | Reward15Word | defense brush fiscal cactus rotate trouble mean quantum shrug slight dignity corn immense first citizen |
+      | Quantaverse Sophie    | Quantaverse    | Reward15Word | defense brush fiscal cactus rotate trouble mean quantum shrug slight dignity corn immense first citizen |
 
   Scenario Outline: Recovery phrase verification for cole wallets
     Given I have restored the "<name>" wallet of "<kind>" kind, "<subkind>" subkind and "<recovery_phrase>" recovery phrase
@@ -71,4 +71,4 @@ Feature: Wallet Settings - Recovery Phrase Verification
     Examples:
       | name           | kind     | subkind       | recovery_phrase                                                                                         |
       | Klarity Cole | Klarity | Cole12Word | prison census discover give sound behave hundred cave someone orchard just wild                         |
-      | Yoroi Cole    | Yoroi    | Cole15Word | defense brush fiscal cactus rotate trouble mean quantum shrug slight dignity corn immense first citizen |
+      | Quantaverse Cole    | Quantaverse    | Cole15Word | defense brush fiscal cactus rotate trouble mean quantum shrug slight dignity corn immense first citizen |

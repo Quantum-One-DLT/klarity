@@ -3,7 +3,7 @@ import type {
   RestoreWalletStep,
   WalletKind,
   WalletKlarityKind,
-  WalletYoroiKind,
+  WalletQuantaverseKind,
   WalletHardwareKind,
   WalletColeKind,
   ImportWalletStep,
@@ -25,7 +25,7 @@ export const IMPORT_WALLET_STEPS: EnumMap<string, ImportWalletStep> = {
 
 export const WALLET_KINDS: EnumMap<string, WalletKind> = {
   KLARITY: 'Klarity',
-  YOROI: 'Yoroi',
+  QUANTAVERSE: 'Quantaverse',
   // HARDWARE: 'Hardware',
 };
 
@@ -45,7 +45,7 @@ export const WALLET_KLARITY_KINDS: EnumMap<
       COLE_27_WORD: '27WordPaper',
     };
 
-export const WALLET_YOROI_KINDS: EnumMap<string, WalletYoroiKind> = {
+export const WALLET_QUANTAVERSE_KINDS: EnumMap<string, WalletQuantaverseKind> = {
   COLE_15_WORD: '15WordCole',
   SOPHIE_15_WORD: '15WordSophie',
 };
@@ -62,9 +62,9 @@ export const WALLET_KLARITY_WORD_COUNT: EnumMap<WalletKlarityKind, number> = {
   [WALLET_KLARITY_KINDS.COLE_27_WORD]: 27,
 };
 
-export const WALLET_YOROI_WORD_COUNT: EnumMap<WalletYoroiKind, number> = {
-  [WALLET_YOROI_KINDS.COLE_15_WORD]: 15,
-  [WALLET_YOROI_KINDS.SOPHIE_15_WORD]: 15,
+export const WALLET_QUANTAVERSE_WORD_COUNT: EnumMap<WalletQuantaverseKind, number> = {
+  [WALLET_QUANTAVERSE_KINDS.COLE_15_WORD]: 15,
+  [WALLET_QUANTAVERSE_KINDS.SOPHIE_15_WORD]: 15,
 };
 
 export const WALLET_HARDWARE_WORD_COUNT: {

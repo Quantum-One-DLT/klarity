@@ -19947,7 +19947,7 @@
                                                                 </translations>
                                                             </concept_node>
                                                             <concept_node>
-                                                                <name>walletKindYoroi</name>
+                                                                <name>walletKindQuantaverse</name>
                                                                 <definition_loaded>false</definition_loaded>
                                                                 <description></description>
                                                                 <comment></comment>
@@ -19964,7 +19964,7 @@
                                                                 </translations>
                                                             </concept_node>
                                                             <concept_node>
-                                                                <name>yoroiWalletKind</name>
+                                                                <name>quantaverseWalletKind</name>
                                                                 <definition_loaded>false</definition_loaded>
                                                                 <description></description>
                                                                 <comment></comment>
@@ -19981,7 +19981,7 @@
                                                                 </translations>
                                                             </concept_node>
                                                             <concept_node>
-                                                                <name>yoroiWalletKindBalance15Word</name>
+                                                                <name>quantaverseWalletKindBalance15Word</name>
                                                                 <definition_loaded>false</definition_loaded>
                                                                 <description></description>
                                                                 <comment></comment>
@@ -19998,7 +19998,7 @@
                                                                 </translations>
                                                             </concept_node>
                                                             <concept_node>
-                                                                <name>yoroiWalletKindReward15Word</name>
+                                                                <name>quantaverseWalletKindReward15Word</name>
                                                                 <definition_loaded>false</definition_loaded>
                                                                 <description></description>
                                                                 <comment></comment>
@@ -20078,7 +20078,7 @@
                                                         </translations>
                                                     </concept_node>
                                                     <concept_node>
-                                                        <name>yoroi</name>
+                                                        <name>quantaverse</name>
                                                         <definition_loaded>false</definition_loaded>
                                                         <description></description>
                                                         <comment></comment>
@@ -26023,7 +26023,7 @@
                 </translations>
             </concept_node>
             <concept_node>
-                <name>wallet.restore.dialog.step.walletKind.label.walletKindYoroi</name>
+                <name>wallet.restore.dialog.step.walletKind.label.walletKindQuantaverse</name>
                 <definition_loaded>false</definition_loaded>
                 <description></description>
                 <comment></comment>
@@ -26040,7 +26040,7 @@
                 </translations>
             </concept_node>
             <concept_node>
-                <name>wallet.restore.dialog.step.walletKind.label.yoroiWalletKind</name>
+                <name>wallet.restore.dialog.step.walletKind.label.quantaverseWalletKind</name>
                 <definition_loaded>false</definition_loaded>
                 <description></description>
                 <comment></comment>
@@ -26057,7 +26057,7 @@
                 </translations>
             </concept_node>
             <concept_node>
-                <name>wallet.restore.dialog.step.walletKind.label.yoroiWalletKindBalance15Word</name>
+                <name>wallet.restore.dialog.step.walletKind.label.quantaverseWalletKindBalance15Word</name>
                 <definition_loaded>false</definition_loaded>
                 <description></description>
                 <comment></comment>
@@ -26074,7 +26074,7 @@
                 </translations>
             </concept_node>
             <concept_node>
-                <name>wallet.restore.dialog.step.walletKind.label.yoroiWalletKindReward15Word</name>
+                <name>wallet.restore.dialog.step.walletKind.label.quantaverseWalletKindReward15Word</name>
                 <definition_loaded>false</definition_loaded>
                 <description></description>
                 <comment></comment>
@@ -26142,7 +26142,7 @@
                 </translations>
             </concept_node>
             <concept_node>
-                <name>wallet.restore.dialog.tab.title.yoroi</name>
+                <name>wallet.restore.dialog.tab.title.quantaverse</name>
                 <definition_loaded>false</definition_loaded>
                 <description></description>
                 <comment></comment>

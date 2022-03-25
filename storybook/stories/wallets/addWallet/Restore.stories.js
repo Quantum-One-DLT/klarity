@@ -10,7 +10,7 @@ import WalletsWrapper from '../_utils/WalletsWrapper';
 import {
   WALLET_KINDS,
   WALLET_KLARITY_KINDS,
-  WALLET_YOROI_KINDS,
+  WALLET_QUANTAVERSE_KINDS,
   WALLET_HARDWARE_KINDS,
 } from '../../../../source/renderer/app/config/walletRestoreConfig';
 
@@ -33,8 +33,8 @@ storiesOf('Wallets|Add Wallet', module)
       null
     );
     let selectItems;
-    if (walletKindSelect === WALLET_KINDS.YOROI)
-      selectItems = WALLET_YOROI_KINDS;
+    if (walletKindSelect === WALLET_KINDS.QUANTAVERSE)
+      selectItems = WALLET_QUANTAVERSE_KINDS;
     else if (walletKindSelect === WALLET_KINDS.HARDWARE)
       selectItems = WALLET_HARDWARE_KINDS;
     else selectItems = WALLET_KLARITY_KINDS;
@@ -56,7 +56,7 @@ storiesOf('Wallets|Add Wallet', module)
         onSetWalletKind={action('onSetWalletKind')}
         walletKind={walletKindSelect}
         walletKindKlarity={walletKindSpecificSelect}
-        walletKindYoroi={walletKindSpecificSelect}
+        walletKindQuantaverse={walletKindSpecificSelect}
         walletKindHardware={walletKindSpecificSelect}
       />
     );
@@ -68,8 +68,8 @@ storiesOf('Wallets|Add Wallet', module)
       WALLET_KINDS.KLARITY
     );
     let selectItems;
-    if (walletKindSelect === WALLET_KINDS.YOROI)
-      selectItems = WALLET_YOROI_KINDS;
+    if (walletKindSelect === WALLET_KINDS.QUANTAVERSE)
+      selectItems = WALLET_QUANTAVERSE_KINDS;
     else if (walletKindSelect === WALLET_KINDS.HARDWARE)
       selectItems = WALLET_HARDWARE_KINDS;
     else selectItems = WALLET_KLARITY_KINDS;
@@ -91,7 +91,7 @@ storiesOf('Wallets|Add Wallet', module)
         onSetWalletMnemonics={action('onSetWalletMnemonics')}
         walletKind={walletKindSelect}
         walletKindKlarity={walletKindSpecificSelect}
-        walletKindYoroi={walletKindSpecificSelect}
+        walletKindQuantaverse={walletKindSpecificSelect}
         walletKindHardware={walletKindSpecificSelect}
         mnemonics={[]}
         expectedWordCount={WALLET_RECOVERY_PHRASE_WORD_COUNT}
@@ -123,8 +123,8 @@ storiesOf('Wallets|Add Wallet', module)
       WALLET_KINDS.KLARITY
     );
     let selectItems;
-    if (walletKindSelect === WALLET_KINDS.YOROI)
-      selectItems = WALLET_YOROI_KINDS;
+    if (walletKindSelect === WALLET_KINDS.QUANTAVERSE)
+      selectItems = WALLET_QUANTAVERSE_KINDS;
     else if (walletKindSelect === WALLET_KINDS.HARDWARE)
       selectItems = WALLET_HARDWARE_KINDS;
     else selectItems = WALLET_KLARITY_KINDS;
@@ -140,7 +140,7 @@ storiesOf('Wallets|Add Wallet', module)
       <SuccessDialog
         onClose={action('onClose')}
         walletKindKlarity={walletKindSpecificSelect}
-        walletKindYoroi={walletKindSpecificSelect}
+        walletKindQuantaverse={walletKindSpecificSelect}
       />
     );
   });

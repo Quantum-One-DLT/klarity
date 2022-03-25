@@ -8,7 +8,7 @@ export type RestoreWalletStep =
 
 export type ImportWalletStep = 'WalletImportFile' | 'WalletSelectImport';
 
-export type WalletKind = 'Klarity' | 'Yoroi' | 'Hardware';
+export type WalletKind = 'Klarity' | 'Quantaverse' | 'Hardware';
 
 export type WalletKlarityKind =
   | '12WordCole'
@@ -16,7 +16,7 @@ export type WalletKlarityKind =
   | '24WordSophie'
   | '27WordPaper';
 
-export type WalletYoroiKind = '15WordCole' | '15WordSophie';
+export type WalletQuantaverseKind = '15WordCole' | '15WordSophie';
 
 export type WalletColeKind = 'icarus' | 'ledger' | 'random' | 'trezor';
 
@@ -24,7 +24,7 @@ export type WalletHardwareKind = 'Ledger' | 'Trezor';
 
 export type WalletSubKind =
   | WalletKlarityKind
-  | WalletYoroiKind
+  | WalletQuantaverseKind
   | WalletHardwareKind;
 
 export type WalletKinds = WalletKind | WalletSubKind;
@@ -44,7 +44,7 @@ export type WalletRestoreDataParam =
 export type WalletRestoreData = {
   walletKind: WalletKind,
   walletKindKlarity?: WalletKlarityKind,
-  walletKindYoroi?: WalletYoroiKind,
+  walletKindQuantaverse?: WalletQuantaverseKind,
   walletKindHardware?: WalletHardwareKind,
   walletSubKind: WalletSubKind,
   mnemonics: Array<string>,

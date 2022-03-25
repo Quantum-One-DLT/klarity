@@ -511,7 +511,7 @@ Changelog
 - Handled random stake pool data during the first "Sophie" epochs ([PR 2151](https://github.com/The-Blockchain-Company/klarity/pull/2151), [PR 2157](https://github.com/The-Blockchain-Company/klarity/pull/2157))
 - Enabled wallet creation regardless of the sync progress ([PR 2150](https://github.com/The-Blockchain-Company/klarity/pull/2150))
 - Enabled restoration of "Sophie" wallets regardless of the sync progress ([PR 2150](https://github.com/The-Blockchain-Company/klarity/pull/2150))
-- Enabled restoration of Yoroi "Sophie" wallets ([PR 2144](https://github.com/The-Blockchain-Company/klarity/pull/2144))
+- Enabled restoration of Quantaverse "Sophie" wallets ([PR 2144](https://github.com/The-Blockchain-Company/klarity/pull/2144))
 - Enabled "Send" screen for "Cole" wallets ([PR 2147](https://github.com/The-Blockchain-Company/klarity/pull/2147))
 - Added SMASH support ([PR 2143](https://github.com/The-Blockchain-Company/klarity/pull/2143))
 
@@ -801,7 +801,7 @@ Changelog
 
 ### Fixes
 
-- Disabled address generation for Yoroi wallets ([PR 1961](https://github.com/The-Blockchain-Company/klarity/pull/1961))
+- Disabled address generation for Quantaverse wallets ([PR 1961](https://github.com/The-Blockchain-Company/klarity/pull/1961))
 - Fixed "Restoration" dialog validation ([PR 1951](https://github.com/The-Blockchain-Company/klarity/pull/1951))
 - Fixed the `EPERM` errors thrown in the console upon changing wallet name on the "Wallet Settings" screen ([PR 1944](https://github.com/The-Blockchain-Company/klarity/pull/1944))
 
@@ -920,7 +920,7 @@ Changelog
 - Added stake pools saturation info and ordering based on desirability ([PR 1826](https://github.com/The-Blockchain-Company/klarity/pull/1826))
 - Implemented "Resync wallet" feature ([PR 1822](https://github.com/The-Blockchain-Company/klarity/pull/1822))
 - Implemented "Hardware wallets" restoration ([PR 1801](https://github.com/The-Blockchain-Company/klarity/pull/1801))
-- Implemented "Yoroi wallets" restoration ([PR 1740](https://github.com/The-Blockchain-Company/klarity/pull/1740))
+- Implemented "Quantaverse wallets" restoration ([PR 1740](https://github.com/The-Blockchain-Company/klarity/pull/1740))
 - Implemented new menu shortcuts ([PR 1780](https://github.com/The-Blockchain-Company/klarity/pull/1780))
 - Implemented React-Polymorph "Link" component ([PR 1799](https://github.com/The-Blockchain-Company/klarity/pull/1799))
 - Implemented a spinner on Wallet delegation screens for wallets in the restoration process ([PR 1847](https://github.com/The-Blockchain-Company/klarity/pull/1847))
@@ -933,7 +933,7 @@ Changelog
 - Fixed a routing issue after wallet deletion ([PR 1823](https://github.com/The-Blockchain-Company/klarity/pull/1823))
 - Fixed a typo on the "Staking pools" screen ([PR 1785](https://github.com/The-Blockchain-Company/klarity/pull/1785))
 - Fixed a typo in the Klarity ITN "Terms of Service" ([PR 1809](https://github.com/The-Blockchain-Company/klarity/pull/1809))
-- Fixed handling of duplicated wallet IDs when restoring Yoroi Balance and Rewards wallets from the same wallet recovery phrase ([PR 1805](https://github.com/The-Blockchain-Company/klarity/pull/1805))
+- Fixed handling of duplicated wallet IDs when restoring Quantaverse Balance and Rewards wallets from the same wallet recovery phrase ([PR 1805](https://github.com/The-Blockchain-Company/klarity/pull/1805))
 - Fixed stake pool descriptions text clipping on stake pool tooltip ([PR 1832](https://github.com/The-Blockchain-Company/klarity/pull/1832))
 - Fixed "Low disk space" notification not being shown for Incentivized testnet ([PR 1833](https://github.com/The-Blockchain-Company/klarity/pull/1833))
 - Fixed download logs link underline color ([PR 1831](https://github.com/The-Blockchain-Company/klarity/pull/1831))
@@ -1094,7 +1094,7 @@ Changelog
 ### Fixes
 
 - Fixed incentivized testnet theme ([PR 1677](https://github.com/The-Blockchain-Company/klarity/pull/1677), [PR 1684](https://github.com/The-Blockchain-Company/klarity/pull/1684))
-- Fixed wrong "Jormugandr" process name ([PR 1669](https://github.com/The-Blockchain-Company/klarity/pull/1669))
+- Fixed wrong "Quibitous" process name ([PR 1669](https://github.com/The-Blockchain-Company/klarity/pull/1669))
 - Fixed paper wallet certificate restoration ([PR 1055](https://github.com/The-Blockchain-Company/klarity/pull/1055))
 - Reduce layout re-renderings ([PR 1595](https://github.com/The-Blockchain-Company/klarity/pull/1595))
 - Fixed green Bcc theme white color and borders color ([PR 1584](https://github.com/The-Blockchain-Company/klarity/pull/1584))

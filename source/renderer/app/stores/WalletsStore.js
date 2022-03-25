@@ -26,7 +26,7 @@ import {
 import {
   WALLET_KINDS,
   WALLET_KLARITY_KINDS,
-  WALLET_YOROI_KINDS,
+  WALLET_QUANTAVERSE_KINDS,
   WALLET_HARDWARE_KINDS,
   RESTORE_WALLET_STEPS,
 } from '../config/walletRestoreConfig';
@@ -45,7 +45,7 @@ import type { AssetToken } from '../api/assets/types';
 import type {
   WalletKind,
   WalletKlarityKind,
-  WalletYoroiKind,
+  WalletQuantaverseKind,
   WalletHardwareKind,
 } from '../types/walletRestoreTypes';
 import type { CsvFileContent } from '../../../common/types/csv-request.types';
@@ -159,7 +159,7 @@ export default class WalletsStore extends Store {
   // STEP: WALLET TYPE
   @observable walletKind: ?WalletKind = null;
   @observable walletKindKlarity: ?WalletKlarityKind = null;
-  @observable walletKindYoroi: ?WalletYoroiKind = null;
+  @observable walletKindQuantaverse: ?WalletQuantaverseKind = null;
   @observable walletKindHardware: ?WalletHardwareKind = null;
   // STEP: RECOVERY PHRASE
   @observable mnemonics: Array<string> = [];
@@ -465,7 +465,7 @@ export default class WalletsStore extends Store {
     this.restoredWallet = null;
     this.walletKind = null;
     this.walletKindKlarity = null;
-    this.walletKindYoroi = null;
+    this.walletKindQuantaverse = null;
     this.walletKindHardware = null;
     this.mnemonics = [];
     this.walletName = '';
@@ -930,8 +930,8 @@ export default class WalletsStore extends Store {
           return this.restoreKlarityRequest;
         }
         return this.restoreColeRandomWalletRequest;
-      case WALLET_KINDS.YOROI:
-        if (this.walletKindYoroi === WALLET_YOROI_KINDS.COLE_15_WORD) {
+      case WALLET_KINDS.QUANTAVERSE:
+        if (this.walletKindQuantaverse === WALLET_QUANTAVERSE_KINDS.COLE_15_WORD) {
           return this.restoreColeIcarusWalletRequest;
         }
         return this.restoreKlarityRequest;

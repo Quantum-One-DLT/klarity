@@ -35,7 +35,7 @@ import {
 import {
   LEGACY_WALLET_RECOVERY_PHRASE_WORD_COUNT,
   WALLET_RECOVERY_PHRASE_WORD_COUNT,
-  YOROI_WALLET_RECOVERY_PHRASE_WORD_COUNT,
+  QUANTAVERSE_WALLET_RECOVERY_PHRASE_WORD_COUNT,
 } from '../../config/cryptoConfig';
 import infoIconInline from '../../assets/images/info-icon.inline.svg';
 import LoadingSpinner from '../widgets/LoadingSpinner';
@@ -157,10 +157,10 @@ const messages = defineMessages({
     description:
       'Tab title "Klarity paper wallet" in the wallet restore dialog.',
   },
-  yoroiTabTitle: {
-    id: 'wallet.restore.dialog.tab.title.yoroi',
-    defaultMessage: '!!!Yoroi wallet',
-    description: 'Tab title "Yoroi wallet" in the wallet restore dialog.',
+  quantaverseTabTitle: {
+    id: 'wallet.restore.dialog.tab.title.quantaverse',
+    defaultMessage: '!!!Quantaverse wallet',
+    description: 'Tab title "Quantaverse wallet" in the wallet restore dialog.',
   },
   shieldedRecoveryPhraseInputLabel: {
     id: 'wallet.restore.dialog.shielded.recovery.phrase.input.label',
@@ -222,7 +222,7 @@ export default class WalletRestoreDialog extends Component<Props, State> {
   };
 
   state = {
-    walletType: WALLET_RESTORE_TYPES.LEGACY, // regular | certificate | legacy | yoroi
+    walletType: WALLET_RESTORE_TYPES.LEGACY, // regular | certificate | legacy | quantaverse
   };
 
   recoveryPhraseAutocomplete: Autocomplete;
@@ -412,9 +412,9 @@ export default class WalletRestoreDialog extends Component<Props, State> {
       this.isCertificate() ? styles.activeButton : '',
     ]);
 
-    const yoroiTabClasses = classnames([
-      'yoroiTab',
-      this.isYoroi() ? styles.activeButton : '',
+    const quantaverseTabClasses = classnames([
+      'quantaverseTab',
+      this.isQuantaverse() ? styles.activeButton : '',
     ]);
 
     return (
@@ -444,12 +444,12 @@ export default class WalletRestoreDialog extends Component<Props, State> {
             {intl.formatMessage(messages.certificateTabTitle)}
           </button>
           <button
-            className={yoroiTabClasses}
+            className={quantaverseTabClasses}
             onClick={() =>
-              this.onSelectWalletType(WALLET_RESTORE_TYPES.YOROI_LEGACY, true)
+              this.onSelectWalletType(WALLET_RESTORE_TYPES.QUANTAVERSE_LEGACY, true)
             }
           >
-            {intl.formatMessage(messages.yoroiTabTitle)}
+            {intl.formatMessage(messages.quantaverseTabTitle)}
           </button>
         </div>
 
@@ -513,15 +513,15 @@ export default class WalletRestoreDialog extends Component<Props, State> {
           />
         )}
 
-        {this.isYoroi() && (
+        {this.isQuantaverse() && (
           <RadioSet
             label={intl.formatMessage(messages.recoveryPhraseTypeLabel)}
             items={[
               {
-                key: WALLET_RESTORE_TYPES.YOROI_LEGACY,
+                key: WALLET_RESTORE_TYPES.QUANTAVERSE_LEGACY,
                 label: (
                   <Fragment>
-                    {YOROI_WALLET_RECOVERY_PHRASE_WORD_COUNT}
+                    {QUANTAVERSE_WALLET_RECOVERY_PHRASE_WORD_COUNT}
                     {intl.formatMessage(
                       messages.recoveryPhraseTypeOptionWord
                     )}{' '}
@@ -534,15 +534,15 @@ export default class WalletRestoreDialog extends Component<Props, State> {
                     </span>
                   </Fragment>
                 ),
-                selected: this.isYoroiLegacy(),
+                selected: this.isQuantaverseLegacy(),
                 onChange: () =>
-                  this.onSelectWalletType(WALLET_RESTORE_TYPES.YOROI_LEGACY),
+                  this.onSelectWalletType(WALLET_RESTORE_TYPES.QUANTAVERSE_LEGACY),
               },
               {
-                key: WALLET_RESTORE_TYPES.YOROI_REGULAR,
+                key: WALLET_RESTORE_TYPES.QUANTAVERSE_REGULAR,
                 label: (
                   <Fragment>
-                    {YOROI_WALLET_RECOVERY_PHRASE_WORD_COUNT}
+                    {QUANTAVERSE_WALLET_RECOVERY_PHRASE_WORD_COUNT}
                     {intl.formatMessage(
                       messages.recoveryPhraseTypeOptionWord
                     )}{' '}
@@ -558,9 +558,9 @@ export default class WalletRestoreDialog extends Component<Props, State> {
                     </span>
                   </Fragment>
                 ),
-                selected: this.isYoroiRegular(),
+                selected: this.isQuantaverseRegular(),
                 onChange: () =>
-                  this.onSelectWalletType(WALLET_RESTORE_TYPES.YOROI_REGULAR),
+                  this.onSelectWalletType(WALLET_RESTORE_TYPES.QUANTAVERSE_REGULAR),
               },
             ]}
           />
@@ -658,16 +658,16 @@ export default class WalletRestoreDialog extends Component<Props, State> {
     return this.state.walletType === WALLET_RESTORE_TYPES.LEGACY;
   }
 
-  isYoroiLegacy() {
-    return this.state.walletType === WALLET_RESTORE_TYPES.YOROI_LEGACY;
+  isQuantaverseLegacy() {
+    return this.state.walletType === WALLET_RESTORE_TYPES.QUANTAVERSE_LEGACY;
   }
 
-  isYoroiRegular() {
-    return this.state.walletType === WALLET_RESTORE_TYPES.YOROI_REGULAR;
+  isQuantaverseRegular() {
+    return this.state.walletType === WALLET_RESTORE_TYPES.QUANTAVERSE_REGULAR;
   }
 
-  isYoroi() {
-    return this.isYoroiLegacy() || this.isYoroiRegular();
+  isQuantaverse() {
+    return this.isQuantaverseLegacy() || this.isQuantaverseRegular();
   }
 
   onSelectWalletType = (walletType: string, shouldResetForm?: boolean) => {
