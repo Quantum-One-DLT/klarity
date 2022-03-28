@@ -1023,9 +1023,9 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@theblockchaincompany/ledgerjs-hw-app-bcc@3.1.0":
+"@the-blockchain-company/ledgerjs-hw-app-bcc@3.1.0":
   version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@theblockchaincompany/ledgerjs-hw-app-bcc/-/ledgerjs-hw-app-bcc-3.1.0.tgz#e6c1a6da9960a5c06070f31cf9d4f1211178f6d4"
+  resolved "https://registry.yarnpkg.com/@the-blockchain-company/ledgerjs-hw-app-bcc/-/ledgerjs-hw-app-bcc-3.1.0.tgz#e6c1a6da9960a5c06070f31cf9d4f1211178f6d4"
   dependencies:
     "@ledgerhq/hw-transport" "^5.12.0"
     "@types/ledgerhq__hw-transport" "^4.21.3"

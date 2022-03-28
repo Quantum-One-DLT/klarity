@@ -4,8 +4,8 @@ synopsis:            Klarity Installer Builder
 description:         Please see README.md
 license:             Apache-2.0
 author:              TBCO
-maintainer:          DevOps <devops@tbco.io>
-copyright:           2019 TBCO
+maintainer:          DevOps <devops@blockchain-company.io>
+copyright:           2022 TBCO
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10

@@ -1,7 +1,7 @@
 // @flow
 import TransportNodeHid from '@ledgerhq/hw-transport-node-hid';
 import { getDevices } from '@ledgerhq/hw-transport-node-hid-noevents';
-import AppBcc, { utils } from '@theblockchaincompany/ledgerjs-hw-app-bcc';
+import AppBcc, { utils } from '@the-blockchain-company/ledgerjs-hw-app-bcc';
 import { BrowserWindow } from 'electron';
 import TrezorConnect, {
   DEVICE_EVENT,

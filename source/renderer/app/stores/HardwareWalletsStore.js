@@ -5,7 +5,7 @@ import semver from 'semver';
 import {
   TransactionSigningMode,
   AddressType,
-} from '@theblockchaincompany/ledgerjs-hw-app-bcc';
+} from '@the-blockchain-company/ledgerjs-hw-app-bcc';
 import Store from './lib/Store';
 import Request from './lib/LocalizedRequest';
 import { HwDeviceStatuses } from '../domains/Wallet';

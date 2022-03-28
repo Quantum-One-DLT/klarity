@@ -1,7 +1,7 @@
 // @flow
 import _ from 'lodash';
 import { bech32 } from 'bech32';
-import { utils } from '@theblockchaincompany/ledgerjs-hw-app-bcc';
+import { utils } from '@the-blockchain-company/ledgerjs-hw-app-bcc';
 import { HARDENED } from '../config/hardwareWalletsConfig';
 
 // Types

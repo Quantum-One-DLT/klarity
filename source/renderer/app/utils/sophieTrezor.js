@@ -1,5 +1,5 @@
 // @flow
-import { utils } from '@theblockchaincompany/ledgerjs-hw-app-bcc';
+import { utils } from '@the-blockchain-company/ledgerjs-hw-app-bcc';
 import { map } from 'lodash';
 import {
   derivationPathToString,

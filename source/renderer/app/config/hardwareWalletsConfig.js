@@ -71,7 +71,7 @@ export const AddressTypeNibbles = {
 };
 
 // MINIMAL_BCC_APP_VERSION v2.3.2 - Catalyst Voting support with LedgerJs 3.1.0 version
-// https://github.com/theblockchaincompany/ledgerjs-hw-app-bcc/blob/master/CHANGELOG.md
+// https://github.com/the-blockchain-company/ledgerjs-hw-app-bcc/blob/master/CHANGELOG.md
 export const MINIMAL_BCC_APP_VERSION = '2.3.2';
 export const MINIMAL_LEDGER_FIRMWARE_VERSION = '2.0.0';
 export const MINIMAL_TREZOR_FIRMWARE_VERSION = '2.4.0';
