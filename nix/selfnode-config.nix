@@ -10,7 +10,7 @@
 
   ##### Core protocol parameters #####
 
-  # This is the instance of the Ouroboros family that we are running.
+  # This is the instance of the Shardagnostic family that we are running.
   # The node also supports various test and mock instances.
   # "RealPBFT" is the real (ie not mock) (permissive) OBFT protocol, which
   # is what we use on mainnet in Cole era.
